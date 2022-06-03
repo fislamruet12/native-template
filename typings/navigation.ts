@@ -4,6 +4,7 @@
 export enum ROOT_NAVIGATION {
   APP = 'APP',
   AUTH = 'AUTH',
+  DRAWER='DRAWER',
 }
 
 export type RootNavigationParams = {
@@ -21,14 +22,17 @@ export type AppNavigationParams = {
 
 export enum AUTH_NAVIGATION {
   SIGN_IN = 'SIGN_IN',
-  SIGN_UP_REQUEST = 'SIGN_UP_REQUEST',
-  SIGN_UP_CONFIRM = 'SIGN_UP_CONFIRM',
+  MAP='MAP',
+  PHONE='PHONE',
+  OTP_CONFIRM = 'OTP_CONFIRM',
+  INFO_CONFIRM = 'INFO_CONFIRM',
 }
 
 export type AuthNavigationParams = {
+  [AUTH_NAVIGATION.PHONE]:undefined;
   [AUTH_NAVIGATION.SIGN_IN]: undefined;
-  [AUTH_NAVIGATION.SIGN_UP_REQUEST]: undefined;
-  [AUTH_NAVIGATION.SIGN_UP_CONFIRM]: { countryCode: string; phoneNumber: string };
+  [AUTH_NAVIGATION.OTP_CONFIRM]: undefined;
+  [AUTH_NAVIGATION.INFO_CONFIRM]:undefined;
 };
 
 

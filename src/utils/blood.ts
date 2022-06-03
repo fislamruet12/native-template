@@ -1,0 +1,1 @@
+export const bloodGroup=["O+","O-","A+","A-","AB+","AB-","B+","B-"]
