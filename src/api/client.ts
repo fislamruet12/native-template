@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { from, Observable } from 'rxjs';
 
-import { BACKEND_BASE } from '~/config';
-import { store } from '~/state';
+import { BACKEND_BASE } from '../config';
+import { store } from '../state';
 
 const axiosInstance = axios.create({
   baseURL: BACKEND_BASE
