@@ -2,16 +2,23 @@ import axios from 'axios';
 import {Box, Button, Image, Input, Text} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {LatLong} from '../../../../typings/dataTypes';
-import { AUTH_NAVIGATION } from '../../../../typings/navigation';
+import {AUTH_NAVIGATION} from '../../../../typings/navigation';
 import {icons} from '../../../assets/icons';
 import {KEY} from '../../../config';
 
 const OtpScreen = (props: any) => {
-  
+  //console.log(props.route.params);
+  let latlonAddress = props.route.params;
   return (
     <Box alignItems="center" flex={1} justifyContent="center">
       <Input mx="3" placeholder="Phone Number" w="75%" maxWidth="300px" />
-      <Button mt={5} onPress={() => props.navigation.navigate(AUTH_NAVIGATION.INFO_CONFIRM)}>
+      <Button
+        mt={5}
+        onPress={() =>
+          props.navigation.navigate(AUTH_NAVIGATION.INFO_CONFIRM, {
+            latlonAddress: latlonAddress,
+          })
+        }>
         Confirm
       </Button>
     </Box>
