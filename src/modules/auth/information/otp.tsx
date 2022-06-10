@@ -10,8 +10,8 @@ const OtpScreen = (props: any) => {
   //console.log(props.route.params);
   let latlonAddress = props.route.params;
   return (
-    <Box alignItems="center" flex={1} justifyContent="center">
-      <Input mx="3" placeholder="Phone Number" w="75%" maxWidth="300px" />
+    <Box alignItems="center" flex={1} justifyContent="center" bg={"white"}>
+      <Input mx="3" placeholder="otp here" w="75%" maxWidth="300px" />
       <Button
         mt={5}
         onPress={() =>
