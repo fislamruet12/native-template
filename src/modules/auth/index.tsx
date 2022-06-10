@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 const Auth = () => (
   <Stack.Navigator
     screenOptions={{
-      headerShown: true,
+      headerShown: false,
     }}>
     <Stack.Screen name={AUTH_NAVIGATION.SIGN_IN} component={SignIn} />
     <Stack.Screen name={AUTH_NAVIGATION.MAP} component={MapScreen} />

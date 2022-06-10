@@ -26,7 +26,7 @@ const PhoneAuthScreen = (props: any) => {
       .catch(err => {});
   };
   return (
-    <Box alignItems="center" flex={1} justifyContent="center">
+    <Box alignItems="center" flex={1} justifyContent="center" bg="white">
       <Box padding={10} flexDirection="row">
         <Image source={icons.pin} alt="loc" style={{width: 20, height: 20}} />
         <Text bold> {address.trim()}</Text>

@@ -4,7 +4,8 @@ import {Image, ScrollView} from 'react-native';
 import {icons} from '../../../assets/icons';
 import {bloodGroup} from '../../../utils/blood';
 import { width } from '../../../utils/handy';
-import { AUTH_NAVIGATION, ROOT_NAVIGATION } from '../../../../typings/navigation';
+import { APP_NAVIGATION, AUTH_NAVIGATION, ROOT_NAVIGATION } from '../../../../typings/navigation';
+import Navigation from '../..';
 
 const DashBoardScreen = (props:any) => {
     const privateRoute=()=>{
@@ -25,7 +26,7 @@ const DashBoardScreen = (props:any) => {
                 <Text bold>Donor List</Text>
               </Center>
             </Pressable>
-            <Pressable onPress={() => console.log('press')}>
+            <Pressable onPress={() =>  props.navigation.push(APP_NAVIGATION.SEARCHNDONOR)}>
               <Center mx={1} rounded={'xl'} size="xl" bg="primary.200">
                 <Image source={icons.searchdonor} style={{width: 30, height: 30}} />
                 <Text bold>Search Donor</Text>

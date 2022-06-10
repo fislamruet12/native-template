@@ -14,10 +14,12 @@ export type RootNavigationParams = {
 
 export enum APP_NAVIGATION {
   DASHBOARD = 'DASHBOARD',
+  SEARCHNDONOR='SEARCHDONOR'
 }
 
 export type AppNavigationParams = {
   [APP_NAVIGATION.DASHBOARD]: undefined;
+  [APP_NAVIGATION.SEARCHNDONOR]:undefined;
 };
 
 export enum AUTH_NAVIGATION {
@@ -35,6 +37,17 @@ export type AuthNavigationParams = {
   [AUTH_NAVIGATION.INFO_CONFIRM]:undefined;
 };
 
+export enum SEARCHDONOR_NAVIGATION{
+  FILTER ='FILTER',
+  SEARCHDONORLIST='SEARCHDONORLIST',
+  SEARCHDONORPROFILE='SEARCHDONORPROFILE'
+}
+
+export type SearchDonorNavigationParams={
+  [SEARCHDONOR_NAVIGATION.FILTER]:undefined;
+  [SEARCHDONOR_NAVIGATION.SEARCHDONORLIST]:undefined;
+  [SEARCHDONOR_NAVIGATION.SEARCHDONORPROFILE]:undefined;
+}
 
 
 
