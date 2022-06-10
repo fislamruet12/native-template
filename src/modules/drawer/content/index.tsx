@@ -18,13 +18,13 @@ const ContentDrawerScreen = (props: any) => {
           borderColor={'coolGray.200'}
           borderWidth={1}>
           <View>
-            <Text bold>SIGN UP</Text>
-          </View>
-          <View>
             <Image
               source={icons.sign}
               style={{width: 20, height: 20, tintColor: 'red'}}
             />
+          </View>
+          <View>
+            <Text bold>SIGN UP</Text>
           </View>
         </View>
         <View
@@ -34,13 +34,13 @@ const ContentDrawerScreen = (props: any) => {
           borderColor={'coolGray.200'}
           borderWidth={1}>
           <View>
-            <Text bold>ABOUT US</Text>
-          </View>
-          <View>
             <Image
               source={icons.info}
               style={{width: 20, height: 20, tintColor: 'red'}}
             />
+          </View>
+          <View>
+            <Text bold>ABOUT US</Text>
           </View>
         </View>
       </View>

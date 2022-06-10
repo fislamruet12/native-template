@@ -2,7 +2,7 @@ import axios from 'axios';
 import {Box, Button, Image, Input, Text} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {LatLong} from '../../../../typings/dataTypes';
-import { AUTH_NAVIGATION } from '../../../../typings/navigation';
+import {AUTH_NAVIGATION} from '../../../../typings/navigation';
 import {icons} from '../../../assets/icons';
 import {KEY} from '../../../config';
 
@@ -26,15 +26,24 @@ const PhoneAuthScreen = (props: any) => {
       .catch(err => {});
   };
   return (
-    <Box alignItems="center" flex={1} justifyContent="center">
+    <Box alignItems="center" flex={1} justifyContent="center" bg="white">
       <Box padding={10} flexDirection="row">
         <Image source={icons.pin} alt="loc" style={{width: 20, height: 20}} />
         <Text bold> {address.trim()}</Text>
       </Box>
       <Input mx="3" placeholder="Phone Number" w="75%" maxWidth="300px" />
-      <Button mt={5} onPress={() => props.navigation.navigate(AUTH_NAVIGATION.OTP_CONFIRM)}>
-        Request OTP
-      </Button>
+      {address != '' && (
+        <Button
+          mt={5}
+          onPress={() =>
+            props.navigation.navigate(AUTH_NAVIGATION.OTP_CONFIRM,{
+              currentPos:currentPos,
+              address:address
+            })
+          }>
+          Request OTP
+        </Button>
+      )}
     </Box>
   );
 };
