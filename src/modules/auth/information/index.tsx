@@ -20,7 +20,7 @@ const InformationScreen = (props: any) => {
     moment().format(DATE_FORMAT),
   );
   let [dateOfdonate, setDateofDonate] = useState<string>(
-    moment().subtract(130,'days').format(DATE_FORMAT),
+    moment().subtract(130, 'days').format(DATE_FORMAT),
   );
   let [blood, setBlood] = useState<string>('O+');
   let districtList = District(division);
@@ -29,7 +29,10 @@ const InformationScreen = (props: any) => {
   return (
     <Box flex={1} bg={'white'} padding={5}>
       <ScrollView>
-        <Box flexDirection={'row'} justifyContent='space-between' alignItems={'center'}>
+        <Box
+          flexDirection={'row'}
+          justifyContent="space-between"
+          alignItems={'center'}>
           <Box>
             <Heading size={'sm'} marginBottom={1}>
               Division
@@ -37,7 +40,7 @@ const InformationScreen = (props: any) => {
             <Select
               placeholder="Division List"
               selectedValue={division}
-              width={width / 2-40}
+              width={width / 2 - 40}
               onValueChange={(itemValue: string) => setDivision(itemValue)}>
               {divisionList.map(item => (
                 <Select.Item
@@ -55,7 +58,7 @@ const InformationScreen = (props: any) => {
             <Select
               placeholder="District List"
               selectedValue={district}
-               width={width/2-40}
+              width={width / 2 - 40}
               onValueChange={(itemValue: string) => setDistrict(itemValue)}>
               {districtList.map(item => (
                 <Select.Item
