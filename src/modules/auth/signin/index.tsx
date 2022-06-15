@@ -1,28 +1,46 @@
-import axios from 'axios';
-import {Box, Button, Heading, Image, Input, Text} from 'native-base';
-import React, {useEffect, useState} from 'react';
-import {LatLong} from '../../../../typings/dataTypes';
+import {
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Image,
+  Input,
+  Link,
+} from 'native-base';
+import React from 'react';
 import {AUTH_NAVIGATION} from '../../../../typings/navigation';
 import {icons} from '../../../assets/icons';
-import {KEY} from '../../../config';
-import country from '../../../assets/file/bangladesh-upazila-district-division.json';
 const SignInScreen = (props: any) => {
-
+  
   return (
     <Box flex={1} background="white">
       <Box alignItems={'center'} padding={10}>
         <Image source={icons.logo} />
       </Box>
-      <Box>
-        <Heading mx="3" bold>
-          LOG IN
-        </Heading>
-        <Input m="3" placeholder="Phone Number" />
-        <Button m={3} onPress={() => console.log('hello worl')}>
+      <Box m={3}>
+        <FormControl>
+          <FormControl.Label>Phone Number</FormControl.Label>
+          <Input placeholder="phone number" />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Password</FormControl.Label>
+          <Input type="password" placeholder='password' />
+          <Link
+            _text={{
+              fontSize: 'xs',
+              fontWeight: '500',
+              color: 'indigo.500',
+            }}
+            alignSelf="flex-end"
+            mt="3">
+            Forget Password?
+          </Link>
+        </FormControl>
+        <Button mt={3} onPress={() => console.log('hello worl')}>
           SIGN IN
         </Button>
         <Button
-          m={'3'}
+          mt={'3'}
           onPress={() => props.navigation.navigate(AUTH_NAVIGATION.MAP)}>
           REGISTER
         </Button>

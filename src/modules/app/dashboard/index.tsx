@@ -6,16 +6,18 @@ import {bloodGroup} from '../../../utils/blood';
 import {width} from '../../../utils/handy';
 import {
   APP_NAVIGATION,
-  AUTH_NAVIGATION,
   ROOT_NAVIGATION,
 } from '../../../../typings/navigation';
-import Navigation from '../..';
 import _ from 'lodash';
+import ActionButton from 'react-native-circular-action-menu';
+import { store } from '../../../state';
 const DashBoardScreen = (props: any) => {
+  const user=store.getState()
   const privateRoute = () => {
     props.navigation.push(ROOT_NAVIGATION.AUTH);
   };
   const donorList = () => {
+
     privateRoute();
   };
   return (
@@ -46,7 +48,7 @@ const DashBoardScreen = (props: any) => {
                 <Text bold>Search Donor</Text>
               </Center>
             </Pressable>
-            <Pressable onPress={() => console.log('press')}>
+            <Pressable  onPress={_.debounce(() => donorList(), 200)}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.300">
                 <Image source={icons.blood} style={{width: 30, height: 30}} />
                 <Text bold>Blood Request</Text>
@@ -98,16 +100,26 @@ const DashBoardScreen = (props: any) => {
           </Flex>
         </VStack>
 
-        {/* <VStack  px="3" space={2.5} mt="2" padding={'2.5'} rounded="xl">
-        <Flex direction="row-reverse" mb="2.5" _text={{color: 'coolGray.800'}}>
-            <Pressable onPress={() => console.log('press')}>
-              <Center rounded={'2xl'} size="md" bg="primary.500">
-                <Image source={icons.sign} style={{tintColor:'red'}} />
-                <Text bold>SignIn</Text>
-              </Center>
-            </Pressable>
-            </Flex>
-        </VStack> */}
+        <VStack
+       
+        width={width}
+        height={170}
+        marginBottom={30}
+       >
+
+        <ActionButton buttonColor="rgba(231,76,60,1)">
+          {bloodGroup.map(value => (
+            <ActionButton.item>
+              <Pressable onPress={() => console.log('press blood')} key={value}>
+                <Center rounded={'xl'} size="md" bg="primary.300" m={1} mt={4}>
+                  <Text bold>{value}</Text>
+                </Center>
+              </Pressable>
+            </ActionButton.item>
+          ))}
+        </ActionButton>
+        </VStack>
+     
       </ScrollView>
     </Box>
   );

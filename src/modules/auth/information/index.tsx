@@ -1,4 +1,13 @@
-import {Box, Button, Heading, Image, Input, Select, Text} from 'native-base';
+import {
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Image,
+  Input,
+  Select,
+  Text,
+} from 'native-base';
 import React, {useState} from 'react';
 import {icons} from '../../../assets/icons';
 import {District, Division, Upazila} from '../../../utils/country';
@@ -9,6 +18,7 @@ import ModernDatePicker from '../../../component/datePicker';
 import moment from 'moment';
 import {DATE_FORMAT} from '../../../config';
 import {width} from '../../../utils/handy';
+import { ROOT_NAVIGATION } from '../../../../typings/navigation';
 let divisionList = Division();
 const InformationScreen = (props: any) => {
   // console.log(props.route.params);
@@ -27,8 +37,8 @@ const InformationScreen = (props: any) => {
   let upazilaList = Upazila(district);
   console.log(dateOfBirth);
   return (
-    <Box flex={1} bg={'white'} padding={5}>
-      <ScrollView>
+    <Box flex={1} bg={'white'}>
+      <ScrollView style={{padding:15}}>
         <Box
           flexDirection={'row'}
           justifyContent="space-between"
@@ -73,7 +83,7 @@ const InformationScreen = (props: any) => {
 
         <Box marginTop={4}>
           <Heading size={'sm'} marginBottom={1}>
-            Upazila
+            Thana
           </Heading>
           <Select
             placeholder="Upazila List"
@@ -117,43 +127,47 @@ const InformationScreen = (props: any) => {
           </Select>
         </Box>
         <Box marginTop={4}>
-          <Heading size={'sm'} marginBottom={1}>
-            Name:
-          </Heading>
-          <Input placeholder="Name Here" />
+        <FormControl>
+            <FormControl.Label>Donor Name</FormControl.Label>
+            <Input type="text" placeholder="Donor name" />
+          </FormControl>
         </Box>
         <Box marginTop={4}>
-          <Heading size={'sm'} marginBottom={1}>
-            NID:
-          </Heading>
-          <Input placeholder="NID Here" />
+        <FormControl>
+            <FormControl.Label>Donor NID</FormControl.Label>
+            <Input type="text" placeholder="NID Here" />
+          </FormControl>
         </Box>
         <Box marginTop={4}>
-          <Heading size={'sm'} marginBottom={1}>
-            Birth Date:
-          </Heading>
-          <ModernDatePicker
+           <FormControl>
+         
+            <FormControl.Label>Birth Date:</FormControl.Label>
+            <ModernDatePicker
             head={`Date of Birth`}
             date={dateOfBirth}
             getDatefromDatePicker={(date: string) => setDateofBirth(date)}
             error={''}
           />
+          </FormControl>
+          
         </Box>
 
         <Box marginTop={4}>
-          <Heading size={'sm'} marginBottom={1}>
-            Last Blood Donation Date:
-          </Heading>
-          <ModernDatePicker
-            head={`Date of Birth`}
+          <FormControl>
+          
+            <FormControl.Label>Last Blood Donation Date:</FormControl.Label>
+            <ModernDatePicker
+            head={`Date of Donate`}
             date={dateOfdonate}
             getDatefromDatePicker={(date: string) => setDateofDonate(date)}
             error={''}
           />
+          </FormControl>
+         
         </Box>
-
-        <Box>
-          <Button mt={5} onPress={() => console.log('hello worl')}>
+     
+        <Box marginBottom={5}>
+          <Button mt={5} onPress={() => props.navigation.navigate(ROOT_NAVIGATION.DRAWER)}>
             CONFIRM INFORMATION
           </Button>
         </Box>
