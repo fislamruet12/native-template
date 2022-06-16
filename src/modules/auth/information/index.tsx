@@ -134,6 +134,12 @@ const InformationScreen = (props: any) => {
         </Box>
         <Box marginTop={4}>
         <FormControl>
+            <FormControl.Label>Donor Email</FormControl.Label>
+            <Input type="text" placeholder="Donor Email" />
+          </FormControl>
+        </Box>
+        <Box marginTop={4}>
+        <FormControl>
             <FormControl.Label>Donor NID</FormControl.Label>
             <Input type="text" placeholder="NID Here" />
           </FormControl>

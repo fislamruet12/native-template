@@ -1,31 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, Center, Flex, Heading, Pressable, Text, VStack} from 'native-base';
 import {Image, ScrollView} from 'react-native';
 import {icons} from '../../../assets/icons';
 import {bloodGroup} from '../../../utils/blood';
 import {width} from '../../../utils/handy';
-import {
-  APP_NAVIGATION,
-  ROOT_NAVIGATION,
-} from '../../../../typings/navigation';
+import {APP_NAVIGATION, ROOT_NAVIGATION} from '../../../../typings/navigation';
 import _ from 'lodash';
 import ActionButton from 'react-native-circular-action-menu';
-import { store } from '../../../state';
+import {store} from '../../../state';
+let TNT=20
+let TH=200
 const DashBoardScreen = (props: any) => {
-  const user=store.getState()
+  const [heights, setheights] = useState(TNT);
+  const user = store.getState().currentUser.user;
   const privateRoute = () => {
     props.navigation.push(ROOT_NAVIGATION.AUTH);
   };
-  const donorList = () => {
-
-    privateRoute();
+  const donorList = (routeName: any) => {
+    if (!user) {
+      props.navigation.push(routeName);
+    } else privateRoute();
   };
   return (
     <Box flex={1} safeAreaTop bg="white" alignItems={'center'}>
       <ScrollView>
         <VStack width={width} px="3" space={2.5} mt="4">
           <Flex direction="row" mb="2.5" _text={{color: 'coolGray.800'}}>
-            <Pressable onPress={_.debounce(() => donorList(), 200)}>
+            <Pressable
+              onPress={_.debounce(
+                () => donorList(APP_NAVIGATION.SEARCHNDONOR),
+                200,
+              )}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.100">
                 <Image source={icons.blooddonor} />
                 <Text bold>Donor List</Text>
@@ -33,7 +38,7 @@ const DashBoardScreen = (props: any) => {
             </Pressable>
             <Pressable
               onPress={_.debounce(
-                () => props.navigation.push(APP_NAVIGATION.SEARCHNDONOR),
+                () => donorList(APP_NAVIGATION.SEARCHNDONOR),
                 200,
               )}>
               <Center
@@ -48,28 +53,92 @@ const DashBoardScreen = (props: any) => {
                 <Text bold>Search Donor</Text>
               </Center>
             </Pressable>
-            <Pressable  onPress={_.debounce(() => donorList(), 200)}>
-              <Center rounded={'xl'} size={width / 3 - 10} bg="primary.300">
-                <Image source={icons.blood} style={{width: 30, height: 30}} />
-                <Text bold>Blood Request</Text>
-              </Center>
-            </Pressable>
-          </Flex>
-          <Flex direction="row" mb="2.5">
             <Pressable onPress={() => console.log('press')}>
-              <Center rounded={'xl'} size={width / 3 - 10} bg="primary.100">
+              <Center rounded={'xl'} size={width / 3 - 10} bg="primary.300">
                 <Image source={icons.donor} style={{width: 30, height: 30}} />
                 <Text bold>Active Donor</Text>
               </Center>
             </Pressable>
-            <Pressable onPress={() => console.log('press')}>
+          </Flex>
+          <Flex direction="row" mb="2.5">
+          <Pressable onPress={_.debounce(() => donorList('12'), 200)}>
+              <Center rounded={'xl'} size={width / 3 - 10} bg="primary.100">
+                <Image source={icons.blood} style={{width: 30, height: 30}} />
+                <Text bold>Blood Request</Text>
+              </Center>
+            </Pressable>
+            
+            <Pressable
+             onPress={() => console.log('press')}>
               <Center
                 mx={1}
                 rounded={'xl'}
                 size={width / 3 - 10}
                 bg="primary.200">
-                <Image source={icons.bank} style={{width: 30, height: 30}} />
+                <Image source={icons.contract} style={{width: 30, height: 30}} />
+                <Text bold>Request List</Text>
+              </Center>
+            </Pressable>
+            <Pressable  onPress={_.debounce(
+                () => donorList(APP_NAVIGATION.BLOODBANK),
+                200,
+              )}>
+              <Center rounded={'xl'} size={width / 3 - 10} bg="primary.300">
+                <Image source={icons.bank} />
                 <Text bold>Blood Bank</Text>
+              </Center>
+            </Pressable>
+          </Flex>
+        </VStack>
+
+        <VStack mt={4}  justifyContent="center" alignItems={'center'} width={width} height={heights}>
+        
+          <ActionButton
+            onPress={() => (heights === TNT ? setheights(TH) : setheights(TNT))}
+            onOverlayPress={() => setheights(TNT)}
+            radius={150}
+            btnOutRange="#f444"
+            size={80}
+            icon={<Image source={icons.bag} style={{width:50,height:50}}/>}
+            buttonColor="rgba(227,36,25,1)">
+            {bloodGroup.map((value,index) => (
+              <ActionButton.item
+                onPress={() => {
+                  setheights(TNT);
+                }}
+                key={value}>
+                <Center rounded="full" size="md" bg={"red."+(index+2)*100} m={1} mt={4}>
+                  <Text bold>{value}</Text>
+                </Center>
+              </ActionButton.item>
+            ))}
+          </ActionButton>
+        </VStack>
+       
+        <VStack width={width} px="3" space={2.5} mt="4">
+          <Flex direction="row" mb="2.5" _text={{color: 'coolGray.800'}}>
+            <Pressable
+              onPress={_.debounce(
+                () => donorList(APP_NAVIGATION.SEARCHNDONOR),
+                200,
+              )}>
+              <Center rounded={'xl'} size={width / 3 - 10} bg="primary.100">
+                <Image source={icons.help} />
+                <Text bold>Help Line</Text>
+              </Center>
+            </Pressable>
+            <Pressable
+              onPress={_.debounce(
+                () => donorList(APP_NAVIGATION.BLOODBANK),
+                200,
+              )}>
+              <Center
+                mx={1}
+                rounded={'xl'}
+                size={width / 3 - 10}
+                bg="primary.200">
+                <Image source={icons.volunteer} style={{width: 30, height: 30}} />
+                <Text bold>Volunteers</Text>
               </Center>
             </Pressable>
             <Pressable onPress={() => console.log('press')}>
@@ -78,48 +147,8 @@ const DashBoardScreen = (props: any) => {
                 <Text bold>Update Donor</Text>
               </Center>
             </Pressable>
-          </Flex>
-        </VStack>
-        <VStack
-          px="3"
-          space={2.5}
-          mt="5"
-          alignSelf={'center'}
-          bg="primary.100"
-          padding={'2.5'}
-          rounded="xl">
-          <Heading size={'md'}>Nearest Blood Group</Heading>
-          <Flex width="100%" direction="row" mb="2.5" flexWrap="wrap">
-            {bloodGroup.map(value => (
-              <Pressable onPress={() => console.log('press blood')} key={value}>
-                <Center rounded={'xl'} size="md" bg="primary.300" m={1} mt={4}>
-                  <Text bold>{value}</Text>
-                </Center>
-              </Pressable>
-            ))}
-          </Flex>
-        </VStack>
-
-        <VStack
-       
-        width={width}
-        height={170}
-        marginBottom={30}
-       >
-
-        <ActionButton buttonColor="rgba(231,76,60,1)">
-          {bloodGroup.map(value => (
-            <ActionButton.item>
-              <Pressable onPress={() => console.log('press blood')} key={value}>
-                <Center rounded={'xl'} size="md" bg="primary.300" m={1} mt={4}>
-                  <Text bold>{value}</Text>
-                </Center>
-              </Pressable>
-            </ActionButton.item>
-          ))}
-        </ActionButton>
-        </VStack>
-     
+            </Flex>
+            </VStack>
       </ScrollView>
     </Box>
   );

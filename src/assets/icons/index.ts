@@ -9,6 +9,10 @@ import sign from './sign.png'
 import logo from './logo.png'
 import update from './update.png'
 import pin from './pin.png'
+import bag from './bag.png'
+import help from './help.png'
+import volunteer from './volunteer.png'
+import contract from './contract.png'
 export const icons={
     theory,
     blooddonor,
@@ -20,5 +24,9 @@ export const icons={
     sign,
     logo,
     update,
-    pin
+    pin,
+    bag,
+    help,
+    volunteer,
+    contract
 }
