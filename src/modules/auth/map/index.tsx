@@ -27,8 +27,8 @@ import { icons } from '../../../assets/icons';
 let watchID: any = null;
 const MapScreen = (props:any) => {
   const [currentPos, setCurrentPos] = useState<LatLong>({
-    latitude: 2,
-    longitude: 2,
+    latitude: 23.811056,
+    longitude:  90.407608,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -102,7 +102,7 @@ const MapScreen = (props:any) => {
       `&key=` +
       KEY +
       ``;
-  console.log(url)
+  //console.log(url)
     axios
       .get(url)
       .then(res => {
@@ -119,15 +119,12 @@ const MapScreen = (props:any) => {
       });
   };
   console.log(currentPos)
-  return locationStatus === false ? (
-    <View backgroundColor={'white'} flex={1} justifyContent="center">
-      <ActivityIndicator size={'large'} color="green" />
-    </View>
-  ) : (
+  return (
     <View flex={1}>
       <MapView
         style={{flex: 1}}
         loadingEnabled={true}
+        showsUserLocation={true}
         onRegionChangeComplete={region => setCurrentPos({
           ...region,
           longitudeDelta:currentPos.longitudeDelta,
