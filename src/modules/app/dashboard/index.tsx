@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Box, Center, Flex, Heading, Pressable, Text, VStack} from 'native-base';
-import {Image, ScrollView} from 'react-native';
+import { Box, Center, Flex, Heading, Pressable, Text, VStack} from 'native-base';
+import {Alert, Image, ScrollView} from 'react-native';
 import {icons} from '../../../assets/icons';
 import {bloodGroup} from '../../../utils/blood';
 import {width} from '../../../utils/handy';
@@ -8,19 +8,23 @@ import {APP_NAVIGATION, ROOT_NAVIGATION} from '../../../../typings/navigation';
 import _ from 'lodash';
 import ActionButton from 'react-native-circular-action-menu';
 import {store} from '../../../state';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state/reducer';
+import { User } from '../../../../typings/structures';
 let TNT=20
 let TH=200
 const DashBoardScreen = (props: any) => {
   const [heights, setheights] = useState(TNT);
-  const user = store.getState().currentUser.user;
+  const user = useSelector((state:RootState)=>state.currentUser.user) as User
   const privateRoute = () => {
     props.navigation.push(ROOT_NAVIGATION.AUTH);
   };
   const donorList = (routeName: any) => {
-    if (!user) {
+    if (user) {
       props.navigation.push(routeName);
-    } else privateRoute();
+    } else privateRoute()
   };
+  console.log(user?.accessToken)
   return (
     <Box flex={1} safeAreaTop bg="white" alignItems={'center'}>
       <ScrollView>
@@ -100,7 +104,7 @@ const DashBoardScreen = (props: any) => {
             btnOutRange="#f444"
             size={80}
             icon={<Image source={icons.bag} style={{width:50,height:50}}/>}
-            buttonColor="rgba(227,36,25,1)">
+            buttonColor="rgba(227,136,25,1)">
             {bloodGroup.map((value,index) => (
               <ActionButton.item
                 onPress={() => {

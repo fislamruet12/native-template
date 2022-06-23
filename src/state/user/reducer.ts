@@ -1,6 +1,6 @@
 import produce from 'immer';
 import * as Types from './actionTypes';
-import { User } from '~/../typings/structures';
+import { User } from '../../../typings/structures';
 
 export type State = {
   user: User | null;

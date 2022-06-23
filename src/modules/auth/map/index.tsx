@@ -106,7 +106,7 @@ const MapScreen = (props:any) => {
     axios
       .get(url)
       .then(res => {
-        console.log(res?.data?.result?.geometry)
+      //  console.log(res?.data?.result?.geometry)
         let loc=res?.data?.result?.geometry.location
         setCurrentPos({
           ...currentPos,
@@ -125,11 +125,14 @@ const MapScreen = (props:any) => {
         style={{flex: 1}}
         loadingEnabled={true}
         showsUserLocation={true}
-        onRegionChangeComplete={region => setCurrentPos({
-          ...region,
-          longitudeDelta:currentPos.longitudeDelta,
-          latitudeDelta:currentPos.latitudeDelta
-        })}
+        onRegionChangeComplete={region =>{
+          console.log(region)
+          setCurrentPos({
+            ...region,
+           // longitudeDelta:currentPos.longitudeDelta,
+           // latitudeDelta:currentPos.latitudeDelta
+          })
+        }}
         region={currentPos}
       >
         <Marker coordinate={currentPos}
@@ -151,7 +154,7 @@ const MapScreen = (props:any) => {
         />
       </View>
       <View position={'absolute'} bottom={5} alignItems="center" width={width}>
-        <Button size={'lg'} onPress={()=>props.navigation.navigate(AUTH_NAVIGATION.PHONE,currentPos)} >Confirm Location</Button>
+        <Button size={'lg'} onPress={()=>props.navigation.navigate(AUTH_NAVIGATION.INFO_CONFIRM,currentPos)} >Confirm Location</Button>
       </View>
     </View>
   );

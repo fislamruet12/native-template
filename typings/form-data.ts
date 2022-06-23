@@ -1,4 +1,3 @@
-
 export type SignInData = {
   countryCode: string;
   phoneNumber: string;
@@ -6,12 +5,10 @@ export type SignInData = {
 };
 
 export type SignUpData = {
-  name: string;
   countryCode: string;
   phoneNumber: string;
   password: string;
   confirmPassword: string;
-  terms: boolean;
 };
 
 export type SignUpConfirmData = {
@@ -20,8 +17,17 @@ export type SignUpConfirmData = {
   otp: string;
 };
 
-
-
-
-
-
+export type UserDetails = {
+  name: string;
+  email: string;
+  blood_group: string;
+  birth_date: string;
+  NID_number: string;
+  gender:string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  division_id: number;
+  district_id: number;
+  upazila_id: number;
+};
