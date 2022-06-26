@@ -16,9 +16,10 @@ const Auth = () => (
       headerShown: false,
     }}>
     <Stack.Screen name={AUTH_NAVIGATION.SIGN_IN} component={SignIn} />
-    <Stack.Screen name={AUTH_NAVIGATION.MAP} component={MapScreen} />
+   
     <Stack.Screen name={AUTH_NAVIGATION.PHONE} component={PhoneAuthScreen} />
     <Stack.Screen name={AUTH_NAVIGATION.OTP_CONFIRM} component={OtpScreen} />
+    <Stack.Screen name={AUTH_NAVIGATION.MAP} component={MapScreen} />
     <Stack.Screen
       name={AUTH_NAVIGATION.INFO_CONFIRM}
       component={InformationScreen}

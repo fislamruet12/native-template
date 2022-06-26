@@ -1,56 +1,68 @@
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { User } from '~/../typings/structures';
-import { SignInData, SignUpConfirmData, SignUpData } from '~/../typings/form-data';
-import client from '~/api/client';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {User} from '../../../typings/structures';
+import {
+  SignInData,
+  SignUpConfirmData,
+  SignUpData,
+  UserDetails,
+} from '../../../typings/form-data';
+import client from '../../api/client';
 
-type SignInResponseData = {
-  data: {
-    access_token: string;
-    userDetails: {
-      id: number;
-      country_code: string;
-      phone_number: string;
-    };
-  };
-};
+const signInRequest$ = (data: SignInData): Observable<User> =>
+  client
+    .post<any>('login', {
+      country_code: data.countryCode,
+      phone_number: data.phoneNumber,
+      password: data.password,
+    })
+    .pipe(
+      map(response => {
+        const responseData = response.data.message;
 
-const signInRequest$ = (data: SignInData): Observable<User> => client
-  .post<SignInResponseData>('login', {
+        const user: User = {
+          id: responseData.userDetails.id,
+          countryCode: '+88',
+          phoneNumber: responseData.userDetails.phone_number,
+          accessToken: responseData.access_token,
+        };
+
+        return user;
+      }),
+    );
+const userDetailsRequest$ = (data: UserDetails): Observable<any> =>
+  client.post('donor-profile-update', {
+    name: data.name,
+    email: data.email,
+    blood_group: data.blood_group,
+    birth_date: data.birth_date,
+    nid_number: data.NID_number,
+    gender: data.gender,
+    latitude: data.latitude,
+    longitude: data.longitude,
+    address: data.address,
+   division_id: data.division_id,
+    district_id: data.district_id,
+   upazila_id: data.upazila_id,
+  });
+
+const signUpRequest$ = (data: SignUpData): Observable<any> =>
+  client.post('request-register-otp', {
+    phone_number: data.phoneNumber,
+    password: data.password,
+    password_confirmation: data.confirmPassword,
+  });
+
+const signUpConfirmRequest$ = (data: SignUpConfirmData): Observable<any> =>
+  client.post('confirm-registration-otp', {
     country_code: data.countryCode,
     phone_number: data.phoneNumber,
-    password: data.password
-  })
-  .pipe(
-    map((response) => {
-      const responseData = response.data;
-      const user: User = {
-        id: responseData.data.userDetails.id,
-        countryCode: responseData.data.userDetails.country_code,
-        phoneNumber: responseData.data.userDetails.phone_number,
-        accessToken: responseData.data.access_token
-      };
-
-      return user;
-    })
-  );
-
-const signUpRequest$ = (data: SignUpData): Observable<any> => client.post('register-request-otp', {
-  name: data.name,
-  phone_number: data.phoneNumber,
-  country_code: data.countryCode,
-  password: data.password,
-  confirm_password: data.confirmPassword
-});
-
-const signUpConfirmRequest$ = (data: SignUpConfirmData): Observable<any> => client.post('confirm-registration-otp', {
-  country_code: data.countryCode,
-  phone_number: data.phoneNumber,
-  otp: data.otp
-});
+    otp: data.otp,
+  });
 
 export default {
   signInRequest$,
   signUpRequest$,
-  signUpConfirmRequest$
+  signUpConfirmRequest$,
+  userDetailsRequest$
 };

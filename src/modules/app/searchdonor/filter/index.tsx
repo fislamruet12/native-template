@@ -12,21 +12,30 @@ import {
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import { SEARCHDONOR_NAVIGATION } from '../../../../../typings/navigation';
+import useDistrict from '../../../../hoc/useDistrict';
+import useDivision from '../../../../hoc/useDivision';
+import useThana from '../../../../hoc/useThana';
 import {bloodGroup, nearestArea} from '../../../../utils/blood';
 import {District, Division, Upazila} from '../../../../utils/country';
 import {width} from '../../../../utils/handy';
 
 let divisionList = Division();
 const SearchDonorFilterScreen = (props: any) => {
-  let [division, setDivision] = React.useState<string>('');
-  let [district, setDistrict] = React.useState<string>('');
-  let [upazila, setUpazila] = React.useState<string>('');
+  const {divisionLoading,divisions}=useDivision()
+
+ 
+  let [division, setDivision] = React.useState<number>(divisions[0].id);
+  const {districtLoading,districts}=useDistrict(division)
+  
+  let [district, setDistrict] = React.useState<number>(districts[0].id);
+  const {thanaLoading,thanas}=useThana(district)
+  let [thana, setThana] = React.useState<number>(thanas[0].id);
 
   let [blood, setBlood] = useState<string>('O+');
   let [distance, setDistance] = useState<string>('5');
-  let districtList = District(division);
-  let upazilaList = Upazila(district);
 
+ 
+   //console.log(districts)
   return (
     <Box flex={1} bg={'white'} padding={5}>
       <ScrollView>
@@ -41,14 +50,14 @@ const SearchDonorFilterScreen = (props: any) => {
             </Heading>
             <Select
               placeholder="Division List"
-              selectedValue={division}
+              selectedValue={division+''}
               width={width / 2 - 40}
-              onValueChange={(itemValue: string) => setDivision(itemValue)}>
-              {divisionList.map(item => (
+              onValueChange={(itemValue: string) => setDivision(parseInt(itemValue))}>
+              {divisions.map(item => (
                 <Select.Item
-                  key={item.division}
-                  label={item.division}
-                  value={item.division}
+                  key={item.id}
+                  label={item.name_en}
+                  value={item.id+''}
                 />
               ))}
             </Select>
@@ -59,14 +68,14 @@ const SearchDonorFilterScreen = (props: any) => {
             </Heading>
             <Select
               placeholder="District List"
-              selectedValue={district}
+              selectedValue={district+''}
               width={width / 2 - 40}
-              onValueChange={(itemValue: string) => setDistrict(itemValue)}>
-              {districtList.map(item => (
+              onValueChange={(itemValue: string) => setDistrict(parseInt(itemValue))}>
+              {districts.map(item => (
                 <Select.Item
-                  key={item.district}
-                  label={item.district}
-                  value={item.district}
+                  key={item.id}
+                  label={item.name_en}
+                  value={item.id+''}
                 />
               ))}
             </Select>
@@ -75,18 +84,18 @@ const SearchDonorFilterScreen = (props: any) => {
 
         <Box marginTop={4}>
           <Heading size={'sm'} marginBottom={1}>
-            Upazila
+            Thana
           </Heading>
           <Select
             placeholder="Upazila List"
-            selectedValue={upazila}
+            selectedValue={thana+''}
             // width={150}
-            onValueChange={(itemValue: string) => setUpazila(itemValue)}>
-            {upazilaList.map(item => (
+            onValueChange={(itemValue: string) => setThana(parseInt(itemValue))}>
+            {thanas.map(item => (
               <Select.Item
-                key={item.upazila}
-                label={item.upazila}
-                value={item.upazila}
+                key={item.id}
+                label={item.name_en}
+                value={item.id+''}
               />
             ))}
           </Select>

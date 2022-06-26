@@ -2,9 +2,17 @@ import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {Box, Input, Text, View} from 'native-base';
 import React from 'react';
 import {Image} from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { User } from '../../../../typings/structures';
 import {icons} from '../../../assets/icons';
+import actions from '../../../state/actions';
+import { RootState } from '../../../state/reducer';
 
 const ContentDrawerScreen = (props: any) => {
+  let dispatch=useDispatch()
+  const user = useSelector((state:RootState)=>state.currentUser.user) as User
   return (
     <DrawerContentScrollView {...props}>
       <View flex={1}>
@@ -24,7 +32,17 @@ const ContentDrawerScreen = (props: any) => {
             />
           </View>
           <View>
-            <Text bold>SIGN UP</Text>
+            <TouchableOpacity onPress={()=>{
+              if(user){
+                dispatch(actions.user.removeUser())
+              }
+            }}>
+             {
+              user?
+              <Text bold>SIGN OUT</Text>:
+              <Text bold>SIGN IN</Text>
+             }
+            </TouchableOpacity>
           </View>
         </View>
         <View
