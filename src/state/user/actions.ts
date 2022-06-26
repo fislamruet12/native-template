@@ -1,5 +1,5 @@
 import * as Types from './actionTypes';
-import { User } from '~/../typings/structures';
+import { User } from '../../../typings/structures';
 
 const saveUser = (user: User): Types.SaveUserAction => ({
   type: Types.SAVE_USER,

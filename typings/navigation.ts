@@ -14,12 +14,14 @@ export type RootNavigationParams = {
 
 export enum APP_NAVIGATION {
   DASHBOARD = 'DASHBOARD',
-  SEARCHNDONOR='SEARCHDONOR'
+  SEARCHNDONOR='SEARCHDONOR',
+  BLOODBANK='BLOODBANK'
 }
 
 export type AppNavigationParams = {
   [APP_NAVIGATION.DASHBOARD]: undefined;
   [APP_NAVIGATION.SEARCHNDONOR]:undefined;
+  [APP_NAVIGATION.BLOODBANK]:undefined;
 };
 
 export enum AUTH_NAVIGATION {
@@ -49,7 +51,14 @@ export type SearchDonorNavigationParams={
   [SEARCHDONOR_NAVIGATION.SEARCHDONORPROFILE]:undefined;
 }
 
+export enum BLOODBANK_NAVIGATION{
+  BANK='BANK',
 
+}
+
+export type BloodBankNavigationParams={
+  [BLOODBANK_NAVIGATION.BANK]:undefined;
+}
 
 
 

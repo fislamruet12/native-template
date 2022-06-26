@@ -1,3 +1,4 @@
+
 /* eslint-disable no-plusplus */
 /* eslint-disable max-len */
 /* eslint-disable camelcase */
@@ -20,6 +21,22 @@ export type User = {
 };
 
 
+export type DivisionType ={
+  id:number;
+  name_bn:string;
+  name_en:string;
+}
+export type DistrictType ={
+  id:number;
+  name_bn:string;
+  name_en:string;
+}
+
+export type ThanaType ={
+  id:number;
+  name_bn:string;
+  name_en:string;
+}
 
 
 export const getGenderType = (genderValue: number): GenderType => {

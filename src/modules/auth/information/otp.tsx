@@ -1,26 +1,101 @@
-import axios from 'axios';
-import {Box, Button, Image, Input, Text} from 'native-base';
+import {Box, Button, Heading, Input, Text} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {LatLong} from '../../../../typings/dataTypes';
 import {AUTH_NAVIGATION} from '../../../../typings/navigation';
-import {icons} from '../../../assets/icons';
-import {KEY} from '../../../config';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
+import {styles} from '../../../utils/style';
+import {PIN_LENGTH} from '../../../config';
+import api from '../../../api';
+import { SignUpConfirmData } from '../../../../typings/form-data';
+import {doOnSubscribe} from '../../../utils/rxjs-utils';
+import {finalize} from 'rxjs/operators';
+import { Alert } from 'react-native';
 
 const OtpScreen = (props: any) => {
-  //console.log(props.route.params);
-  let latlonAddress = props.route.params;
+  let credInfo = props.route.params;
+  const [serverCode, setserverCode] = useState(credInfo.otp);
+  const [codes, setCode] = useState(credInfo.otp);
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+  const confirmOtp=()=>{
+    let confirmData:SignUpConfirmData={
+      countryCode:'+88',//credInfo.crediential.countryCode,
+      phoneNumber:credInfo.crediential.phoneNumber,
+      otp:credInfo.otp
+    }
+    console.log(confirmData)
+    api.auth.signUpConfirmRequest$(confirmData)
+    .pipe(
+      doOnSubscribe(() => setLoading(true)),
+      finalize(() => setLoading(false)),
+    )
+    .subscribe({
+      next: response => {
+        console.log('Result', response.data);
+       props.navigation.popToTop()
+      },
+      error: error => {
+        console.log(error);
+        Alert.alert('',error?.response?.data?.errors?.phone_number)
+      },
+    });
+  }
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action
+      setCode('');
+      setStatus('');
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, []);
+  console.log(credInfo);
   return (
-    <Box alignItems="center" flex={1} justifyContent="center" bg={"white"}>
-      <Input mx="3" placeholder="otp here" w="75%" maxWidth="300px" />
-      <Button
-        mt={5}
-        onPress={() =>
-          props.navigation.navigate(AUTH_NAVIGATION.INFO_CONFIRM, {
-            latlonAddress: latlonAddress,
-          })
-        }>
-        Confirm
-      </Button>
+    <Box flex={1} justifyContent="center" bg={'white'}>
+      <Heading padding={4} fontSize={18} textAlign="center">
+        Please,Confirm your OTP.
+      </Heading>
+      <Box padding={5}>
+        <Box alignItems={'center'}>
+          <OTPInputView
+            style={{width: '80%', height: 100}}
+            pinCount={PIN_LENGTH}
+            code={codes} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
+            onCodeChanged={code => {
+              setCode(code);
+              //  console.log(code)
+              if (code.length === PIN_LENGTH && code != serverCode)
+                setStatus('Otp is not Matched');
+              else if (code.length === PIN_LENGTH && code === serverCode) {
+                setStatus('Otp is Matched');
+              } else setStatus('');
+            }}
+            autoFocusOnLoad
+            codeInputFieldStyle={styles.underlineStyleBase}
+            codeInputHighlightStyle={styles.underlineStyleHighLighted}
+            onCodeFilled={code => {
+              console.log(`Code is ${code}, you are good to go!`);
+              if (code != serverCode) setStatus('Otp is not Matched');
+              else {
+                // props.navigation.navigate(AUTH_NAVIGATION.INFO_CONFIRM, {
+                //   latlonAddress: latlonAddress,
+                // })
+              }
+            }}
+          />
+        </Box>
+        <Box>
+          <Button mt={5} onPress={() => confirmOtp()}>
+            CONFIRM
+          </Button>
+          <Button
+            mt={5}
+            onPress={() => props.navigation.navigate(AUTH_NAVIGATION.MAP)}>
+            RESEND OTP
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 };

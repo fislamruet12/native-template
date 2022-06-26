@@ -1,4 +1,4 @@
-import { User } from '~/../typings/structures';
+import { User } from '../../../typings/structures';
 
 export const SAVE_USER = 'user/SAVE_USER';
 export const REMOVE_USER = 'user/REMOVE_USER';

@@ -26,7 +26,7 @@ const ModernDatePicker = (props: any) => {
     <Box>
       <TouchableOpacity activeOpacity={1} onPress={() => setShow(!show)}>
         <View borderColor={'gray.400'} borderWidth={1} padding={3} rounded={'sm'}> 
-          <Text bold>{selectedDate}</Text>
+          <Text >{selectedDate}</Text>
         </View>
       </TouchableOpacity>
       <AlertDialog
