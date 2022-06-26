@@ -1,4 +1,4 @@
-package com.donate.newarchitecture;
+package com.fislam.donate.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.donate.BuildConfig;
-import com.donate.newarchitecture.components.MainComponentsRegistry;
-import com.donate.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.fislam.donate.BuildConfig;
+import com.fislam.donate.newarchitecture.components.MainComponentsRegistry;
+import com.fislam.donate.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

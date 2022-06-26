@@ -1,4 +1,4 @@
-package com.donate;
+package com.fislam.donate;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

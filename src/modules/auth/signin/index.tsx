@@ -66,12 +66,13 @@ const SignInScreen = (props: any) => {
           error: error => {
             console.log(error?.response);
             // Alert.alert('hi','l')
-            Alert.alert(
-              '',
-              error?.response?.data?.data
-                ? error?.response?.data?.data
-                : error?.response?.data?.message,
-            );
+            Alert.alert("Error",JSON.stringify(error))
+            // Alert.alert(
+            //   '',
+            //   error?.response?.data?.data
+            //     ? error?.response?.data?.data
+            //     : error?.response?.data?.message,
+            // );
           },
         });
     },

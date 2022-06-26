@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.donate">
+  package="com.fislam.donate">
 
     <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission
