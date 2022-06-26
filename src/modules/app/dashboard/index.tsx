@@ -24,7 +24,7 @@ const DashBoardScreen = (props: any) => {
       props.navigation.push(routeName);
     } else privateRoute()
   };
-  console.log(user?.accessToken)
+
   return (
     <Box flex={1} safeAreaTop bg="white" alignItems={'center'}>
       <ScrollView>

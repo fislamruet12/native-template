@@ -1,5 +1,12 @@
-
-import {Box, Button, FormControl, Heading, Image, Input, Link} from 'native-base';
+import {
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Image,
+  Input,
+  Link,
+} from 'native-base';
 import React, {useState} from 'react';
 import {AUTH_NAVIGATION} from '../../../../typings/navigation';
 import {icons} from '../../../assets/icons';
@@ -12,14 +19,13 @@ import {doOnSubscribe} from '../../../utils/rxjs-utils';
 import {finalize} from 'rxjs/operators';
 import api from '../../../api';
 import {ScrollView} from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
-import { Alert } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {Alert} from 'react-native';
 import actions from '../../../state/actions';
 
 const SignInScreen = (props: any) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
- 
 
   const validationSchema = Yup.object().shape({
     countryCode: Yup.string().required('Required'),
@@ -29,7 +35,6 @@ const SignInScreen = (props: any) => {
     password: Yup.string()
       .min(PASSWORD_MIN_LENGTH, `Must be at least ${PASSWORD_MIN_LENGTH}`)
       .required('Password is required'),
-  
   });
 
   const initialValues: SignInData = {
@@ -50,15 +55,23 @@ const SignInScreen = (props: any) => {
         )
         .subscribe({
           next: user => {
-           console.log('Result', user);
-           dispatch(actions.user.saveUser(user))
-          // props.navigation.goBack()
-          props.navigation.navigate(AUTH_NAVIGATION.MAP)
+            console.log('Result', user);
+            dispatch(actions.user.saveUser(user));
+            if (user.name != '') {
+              props.navigation.goBack();
+            } else {
+              props.navigation.navigate(AUTH_NAVIGATION.MAP);
+            }
           },
           error: error => {
             console.log(error?.response);
-           // Alert.alert('hi','l')
-           Alert.alert('', error?.response?.data?.data?error?.response?.data?.data:error?.response?.data?.message);
+            // Alert.alert('hi','l')
+            Alert.alert(
+              '',
+              error?.response?.data?.data
+                ? error?.response?.data?.data
+                : error?.response?.data?.message,
+            );
           },
         });
     },
@@ -74,9 +87,9 @@ const SignInScreen = (props: any) => {
             style={{width: 50, height: 50}}
           />
         </Box>
-         <Box>
+        <Box>
           <Heading>Sign In</Heading>
-         </Box>
+        </Box>
         <Box marginTop={4}>
           <FormControl
             isRequired
@@ -111,39 +124,36 @@ const SignInScreen = (props: any) => {
             </FormControl.ErrorMessage>
           </FormControl>
         </Box>
-      
+
         <Box m={3}>
-        <FormControl>
-         
-          <Link
-            _text={{
-              fontSize: 'xs',
-              fontWeight: '500',
-              color: 'indigo.500',
-            }}
-            alignSelf="flex-end"
-            mt="3">
-            Forget Password?
-          </Link>
-        </FormControl>
-        <Button
-          mt={3}
-          isLoading={loading}
-          isLoadingText="Signing..."
-          onPress={formik.handleSubmit}>
-          SIGN IN
-        </Button>
-        <Button
-          mt={'3'}
-          onPress={() => props.navigation.navigate(AUTH_NAVIGATION.PHONE)}>
-          REGISTER
-        </Button>
-      </Box>
-     
+          <FormControl>
+            <Link
+              _text={{
+                fontSize: 'xs',
+                fontWeight: '500',
+                color: 'indigo.500',
+              }}
+              alignSelf="flex-end"
+              mt="3">
+              Forget Password?
+            </Link>
+          </FormControl>
+          <Button
+            mt={3}
+            isLoading={loading}
+            isLoadingText="Signing..."
+            onPress={formik.handleSubmit}>
+            SIGN IN
+          </Button>
+          <Button
+            mt={'3'}
+            onPress={() => props.navigation.navigate(AUTH_NAVIGATION.PHONE)}>
+            REGISTER
+          </Button>
+        </Box>
       </ScrollView>
     </Box>
   );
 };
-
 
 export default SignInScreen;

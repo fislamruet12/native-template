@@ -18,6 +18,8 @@ export type User = {
   countryCode: string;
   phoneNumber: string;
   accessToken: string;
+  name:string;
+  email:string;
 };
 
 
