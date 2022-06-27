@@ -14,7 +14,7 @@ const DrawerScreen = () => {
   return (
     <Drawer.Navigator
       drawerContent={props => <ContentDrawerScreen {...props} />}
-      screenOptions={{headerShown:false,drawerStyle:{width:width/2}}}
+      screenOptions={{headerShown:false,drawerStyle:{width:width/2,borderTopRightRadius:20}}}
     >
       <Drawer.Screen name={ROOT_NAVIGATION.APP} component={App} />
     </Drawer.Navigator>

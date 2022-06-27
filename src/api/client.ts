@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const { currentUser } = store.getState();
-
+  
   if (currentUser.user) {
     config.headers.Authorization = `Bearer ${currentUser.user.accessToken}`;
   }

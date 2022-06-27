@@ -1,4 +1,4 @@
-package com.donate.newarchitecture.modules;
+package com.fislam.donate.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

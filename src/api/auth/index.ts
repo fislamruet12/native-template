@@ -1,6 +1,6 @@
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {User} from '../../../typings/structures';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { User } from '../../../typings/structures';
 import {
   SignInData,
   SignUpConfirmData,
@@ -25,6 +25,8 @@ const signInRequest$ = (data: SignInData): Observable<User> =>
           countryCode: '+88',
           phoneNumber: responseData.userDetails.phone_number,
           accessToken: responseData.access_token,
+          name: responseData.userDetails.name,
+          email: responseData.userDetails.email,
         };
 
         return user;
@@ -41,9 +43,9 @@ const userDetailsRequest$ = (data: UserDetails): Observable<any> =>
     latitude: data.latitude,
     longitude: data.longitude,
     address: data.address,
-   division_id: data.division_id,
+    division_id: data.division_id,
     district_id: data.district_id,
-   upazila_id: data.upazila_id,
+    upazila_id: data.upazila_id,
   });
 
 const signUpRequest$ = (data: SignUpData): Observable<any> =>
@@ -60,9 +62,16 @@ const signUpConfirmRequest$ = (data: SignUpConfirmData): Observable<any> =>
     otp: data.otp,
   });
 
+const SignOutRequest$ = () => client.get('logout').pipe(
+  map(response=>{
+    console.log(response)
+  })
+)
+
 export default {
   signInRequest$,
   signUpRequest$,
   signUpConfirmRequest$,
-  userDetailsRequest$
+  userDetailsRequest$,
+  SignOutRequest$
 };
