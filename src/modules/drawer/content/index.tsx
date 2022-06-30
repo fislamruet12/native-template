@@ -19,22 +19,30 @@ const ContentDrawerScreen = (props: any) => {
   return (
     <DrawerContentScrollView {...props}>
       <View flex={1}>
-        <View alignSelf={'center'} padding={5}>
+        <View bg={'primary.100'} rounded="md">
+
+       
+        <View alignSelf={'center'} padding={5} borderColor="coolGray.400" borderWidth={.5} rounded="full">
           <Image source={icons.logo} style={{width: 50, height: 50}} />
         </View>
        {
          user &&<View>
          <View  justifyContent={'center'} alignItems="center" flexDirection={'row'} my={2}>
-         <View mr={2}>
+         {/* <View mr={2}>
            <Image source={icons.user} style={{width: 30, height: 30}} />
-         </View>
+         </View> */}
          <View>
-           <Text bold fontSize={20}>
+           <Text fontFamily={"Montserrat-SemiBold"} fontSize={20}>
              {user?.name}
            </Text>
-           <Text>+88{user.phoneNumber}</Text>
+           <Text fontFamily={"Montserrat-Regular"}>+88{user.phoneNumber}</Text>
          </View>
        </View>
+       
+       </View>
+}
+</View>
+{
        <View
          padding={5}
          flexDirection="row"
@@ -59,11 +67,30 @@ const ContentDrawerScreen = (props: any) => {
                 }
                 }
              }}>
-             {user ? <Text bold>SIGN OUT</Text> : <Text bold>SIGN IN</Text>}
+             {user ?
+               <Text fontFamily={"Montserrat-SemiBold"}>SIGN OUT</Text> 
+               : <Text fontFamily={"Montserrat-SemiBold"}>SIGN IN</Text>
+              }
            </TouchableOpacity>
          </View>
-       </View></View>
+       </View>
        }
+        <View
+          padding={5}
+          flexDirection="row"
+          justifyContent="space-between"
+          borderColor={'coolGray.200'}
+          borderWidth={1}>
+          <View>
+            <Image
+              source={icons.user}
+              style={{width: 20, height: 20}}
+            />
+          </View>
+          <View>
+            <Text fontFamily={"Montserrat-SemiBold"}>PROFILE</Text>
+          </View>
+        </View>
         <View
           padding={5}
           flexDirection="row"
@@ -77,10 +104,11 @@ const ContentDrawerScreen = (props: any) => {
             />
           </View>
           <View>
-            <Text bold>ABOUT US</Text>
+            <Text fontFamily={"Montserrat-SemiBold"}>ABOUT US</Text>
           </View>
         </View>
-      </View>
+        </View>
+     
     </DrawerContentScrollView>
   );
 };

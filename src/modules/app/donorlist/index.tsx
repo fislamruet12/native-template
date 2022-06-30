@@ -1,15 +1,10 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {
-  BLOODBANK_NAVIGATION,
-  SEARCHDONOR_NAVIGATION,
-} from '../../../../typings/navigation';
-import SearchDonorFilterScreen from './filter';
-import SearchDonorListScreen from './searchdonorlist';
-import BankScreen from './bank';
+import { DONORLIST_NAVIGATION } from '../../../../typings/navigation';
+import DonorListItem from './listitem';
 
 const Stack = createNativeStackNavigator();
-const BloodBankScreen = (props: any) => {
+const DonorListScreen = (props: any) => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -18,12 +13,14 @@ const BloodBankScreen = (props: any) => {
       <Stack.Screen
         options={{
           headerShown: true,
+          headerTitle:"DONOR LIST",
           headerTitleStyle: {fontFamily: 'Montserrat-SemiBold'},
         }}
-        name={BLOODBANK_NAVIGATION.BANK}
-        component={BankScreen}
+        name={DONORLIST_NAVIGATION.DONORLISTITEM}
+        component={DonorListItem}
       />
+     
     </Stack.Navigator>
   );
 };
-export default BloodBankScreen;
+export default DonorListScreen

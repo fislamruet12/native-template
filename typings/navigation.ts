@@ -14,12 +14,14 @@ export type RootNavigationParams = {
 
 export enum APP_NAVIGATION {
   DASHBOARD = 'DASHBOARD',
+  DONORLIST='DONORLIST',
   SEARCHNDONOR='SEARCHDONOR',
   BLOODBANK='BLOODBANK'
 }
 
 export type AppNavigationParams = {
   [APP_NAVIGATION.DASHBOARD]: undefined;
+  [APP_NAVIGATION.DONORLIST]:undefined;
   [APP_NAVIGATION.SEARCHNDONOR]:undefined;
   [APP_NAVIGATION.BLOODBANK]:undefined;
 };
@@ -60,7 +62,12 @@ export type BloodBankNavigationParams={
   [BLOODBANK_NAVIGATION.BANK]:undefined;
 }
 
-
+export enum DONORLIST_NAVIGATION{
+     DONORLISTITEM='DONORLISTITEM'
+}
+export const DonorListNavigationParams={
+  [DONORLIST_NAVIGATION.DONORLISTITEM]:undefined
+}
 
 
 
