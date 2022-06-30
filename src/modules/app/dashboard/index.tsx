@@ -27,17 +27,20 @@ const DashBoardScreen = (props: any) => {
 
   return (
     <Box flex={1} safeAreaTop bg="white" alignItems={'center'}>
+      
       <ScrollView>
         <VStack width={width} px="3" space={2.5} mt="4">
           <Flex direction="row" mb="2.5" _text={{color: 'coolGray.800'}}>
             <Pressable
               onPress={_.debounce(
-                () => donorList(APP_NAVIGATION.SEARCHNDONOR),
+                () => donorList(APP_NAVIGATION.DONORLIST),
                 200,
               )}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.100">
-                <Image source={icons.blooddonor} />
-                <Text bold>Donor List</Text>
+                 <Box bg="coolGray.500" p={2} 
+                 <Image source={icons.blooddonor}/>
+                 </Box>
+                <Text fontFamily={"Montserrat-SemiBold"}>Donor List</Text>
               </Center>
             </Pressable>
             <Pressable
@@ -54,33 +57,33 @@ const DashBoardScreen = (props: any) => {
                   source={icons.searchdonor}
                   style={{width: 30, height: 30}}
                 />
-                <Text bold>Search Donor</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Search Donor</Text>
               </Center>
             </Pressable>
-            <Pressable onPress={() => console.log('press')}>
+            <Pressable onPress={() =>   Alert.alert("",'Under Developed')}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.300">
                 <Image source={icons.donor} style={{width: 30, height: 30}} />
-                <Text bold>Active Donor</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Active Donor</Text>
               </Center>
             </Pressable>
           </Flex>
           <Flex direction="row" mb="2.5">
-          <Pressable onPress={_.debounce(() => donorList('12'), 200)}>
+          <Pressable onPress={_.debounce(() =>Alert.alert("",'Under Developed'), 200)}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.100">
                 <Image source={icons.blood} style={{width: 30, height: 30}} />
-                <Text bold>Blood Request</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Blood Request</Text>
               </Center>
             </Pressable>
             
             <Pressable
-             onPress={() => console.log('press')}>
+            onPress={_.debounce(() =>Alert.alert("",'Under Developed'), 200)}>
               <Center
                 mx={1}
                 rounded={'xl'}
                 size={width / 3 - 10}
                 bg="primary.200">
                 <Image source={icons.contract} style={{width: 30, height: 30}} />
-                <Text bold>Request List</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Request List</Text>
               </Center>
             </Pressable>
             <Pressable  onPress={_.debounce(
@@ -89,7 +92,7 @@ const DashBoardScreen = (props: any) => {
               )}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.300">
                 <Image source={icons.bank} />
-                <Text bold>Blood Bank</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Blood Bank</Text>
               </Center>
             </Pressable>
           </Flex>
@@ -112,7 +115,7 @@ const DashBoardScreen = (props: any) => {
                 }}
                 key={value}>
                 <Center rounded="full" size="md" bg={"red."+(index+2)*100} m={1} mt={4}>
-                  <Text bold>{value}</Text>
+                  <Text fontFamily={"Montserrat-Bold"}>{value}</Text>
                 </Center>
               </ActionButton.item>
             ))}
@@ -122,33 +125,27 @@ const DashBoardScreen = (props: any) => {
         <VStack width={width} px="3" space={2.5} mt="4">
           <Flex direction="row" mb="2.5" _text={{color: 'coolGray.800'}}>
             <Pressable
-              onPress={_.debounce(
-                () => donorList(APP_NAVIGATION.SEARCHNDONOR),
-                200,
-              )}>
+             onPress={_.debounce(() =>Alert.alert("",'Under Developed'), 200)}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.100">
                 <Image source={icons.help} />
-                <Text bold>Help Line</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Help Line</Text>
               </Center>
             </Pressable>
             <Pressable
-              onPress={_.debounce(
-                () => donorList(APP_NAVIGATION.BLOODBANK),
-                200,
-              )}>
+             onPress={_.debounce(() =>Alert.alert("",'Under Developed'), 200)}>
               <Center
                 mx={1}
                 rounded={'xl'}
                 size={width / 3 - 10}
                 bg="primary.200">
                 <Image source={icons.volunteer} style={{width: 30, height: 30}} />
-                <Text bold>Volunteers</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Volunteers</Text>
               </Center>
             </Pressable>
-            <Pressable onPress={() => console.log('press')}>
+            <Pressable onPress={_.debounce(() =>Alert.alert("",'Under Developed'), 200)}>
               <Center rounded={'xl'} size={width / 3 - 10} bg="primary.300">
                 <Image source={icons.update} style={{tintColor: 'red'}} />
-                <Text bold>Update Donor</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>Update Donor</Text>
               </Center>
             </Pressable>
             </Flex>
