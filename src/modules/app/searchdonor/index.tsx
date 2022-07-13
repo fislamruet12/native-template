@@ -21,6 +21,11 @@ const SearchDonorScreen = (props: any) => {
         component={SearchDonorFilterScreen}
       />
       <Stack.Screen
+       options={{
+        headerShown: true,
+        headerTitle:"DONOR LIST",
+        headerTitleStyle: {fontFamily: 'Montserrat-SemiBold'},
+      }}
         name={SEARCHDONOR_NAVIGATION.SEARCHDONORLIST}
         component={SearchDonorListScreen}
       />

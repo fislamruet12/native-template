@@ -1,4 +1,12 @@
-import {Box, Button, FormControl, Heading, Image, Input} from 'native-base';
+import {
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Image,
+  Input,
+  Text,
+} from 'native-base';
 import React, {useState} from 'react';
 import {AUTH_NAVIGATION} from '../../../../typings/navigation';
 import {icons} from '../../../assets/icons';
@@ -11,12 +19,11 @@ import {doOnSubscribe} from '../../../utils/rxjs-utils';
 import {finalize} from 'rxjs/operators';
 import api from '../../../api';
 import {ScrollView} from 'react-native-gesture-handler';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 
 const PhoneAuthScreen = (props: any) => {
-  
   const [loading, setLoading] = useState(false);
-  
+
   const validationSchema = Yup.object().shape({
     countryCode: Yup.string().required('Required'),
     phoneNumber: Yup.string()
@@ -52,21 +59,21 @@ const PhoneAuthScreen = (props: any) => {
         .subscribe({
           next: response => {
             console.log('Result', response.data);
-            let otp=response.data.message.otp
+            let otp = response.data.message.otp;
             props.navigation.navigate(AUTH_NAVIGATION.OTP_CONFIRM, {
-               crediential:values,
-               otp:otp
+              crediential: values,
+              otp: otp,
             });
           },
           error: error => {
             console.log(error);
-            Alert.alert('',error?.response?.data?.errors?.phone_number[0])
+            Alert.alert('', error?.response?.data?.errors?.phone_number[0]);
           },
         });
     },
   });
 
- // console.log(formik.errors, 1);
+  // console.log(formik.errors, 1);
   return (
     <Box flex={1} padding={5} bg="white">
       <ScrollView>
@@ -74,17 +81,21 @@ const PhoneAuthScreen = (props: any) => {
           <Image
             source={icons.logo}
             alt="loc"
-            style={{width: 50, height: 50}}
+            style={{width: 80, height: 80}}
           />
         </Box>
         <Box>
-          <Heading>Sign Up</Heading>
-         </Box>
+          <Text fontFamily="Montserrat-Bold" fontSize={22}>
+            SIGN UP
+          </Text>
+        </Box>
         <Box marginTop={4}>
           <FormControl
             isRequired
             isInvalid={formik.errors.phoneNumber && formik.touched.phoneNumber}>
-            <FormControl.Label>Phone Number</FormControl.Label>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Phone Number
+            </FormControl.Label>
             <Input
               type="text"
               placeholder="phone number"
@@ -92,7 +103,9 @@ const PhoneAuthScreen = (props: any) => {
               onChangeText={formik.handleChange('phoneNumber')}
               onBlur={formik.handleBlur('phoneNumber')}
             />
-            <FormControl.ErrorMessage marginLeft={1}>
+            <FormControl.ErrorMessage
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginLeft={1}>
               {formik.errors.phoneNumber}
             </FormControl.ErrorMessage>
           </FormControl>
@@ -101,7 +114,9 @@ const PhoneAuthScreen = (props: any) => {
           <FormControl
             isRequired
             isInvalid={formik.errors.password && formik.touched.password}>
-            <FormControl.Label>Password</FormControl.Label>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Password
+            </FormControl.Label>
             <Input
               type="password"
               placeholder="password "
@@ -109,7 +124,9 @@ const PhoneAuthScreen = (props: any) => {
               onChangeText={formik.handleChange('password')}
               onBlur={formik.handleBlur('password')}
             />
-            <FormControl.ErrorMessage marginLeft={1}>
+            <FormControl.ErrorMessage
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginLeft={1}>
               {formik.errors.password}
             </FormControl.ErrorMessage>
           </FormControl>
@@ -120,7 +137,9 @@ const PhoneAuthScreen = (props: any) => {
             isInvalid={
               formik.errors.confirmPassword && formik.touched.confirmPassword
             }>
-            <FormControl.Label>Confirm Password</FormControl.Label>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Confirm Password
+            </FormControl.Label>
             <Input
               type="password"
               placeholder="confirm password"
@@ -128,7 +147,9 @@ const PhoneAuthScreen = (props: any) => {
               onChangeText={formik.handleChange('confirmPassword')}
               onBlur={formik.handleBlur('confirmPassword')}
             />
-            <FormControl.ErrorMessage marginLeft={1}>
+            <FormControl.ErrorMessage
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginLeft={1}>
               {formik.errors.confirmPassword}
             </FormControl.ErrorMessage>
           </FormControl>
@@ -136,12 +157,7 @@ const PhoneAuthScreen = (props: any) => {
 
         <Button
           mt={5}
-          // onPress={() =>
-          //   props.navigation.navigate(AUTH_NAVIGATION.OTP_CONFIRM,{
-          //     currentPos:currentPos,
-          //     address:address
-          //   })
-          // }
+          _text={{fontFamily: 'Montserrat-SemiBold'}}
           isLoading={loading}
           isLoadingText="Submitting"
           onPress={formik.handleSubmit}>

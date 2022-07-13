@@ -16,7 +16,9 @@ export enum APP_NAVIGATION {
   DASHBOARD = 'DASHBOARD',
   DONORLIST='DONORLIST',
   SEARCHNDONOR='SEARCHDONOR',
-  BLOODBANK='BLOODBANK'
+  BLOODBANK='BLOODBANK',
+  HELPLINE ='HLPLINE',
+  VOLUNTEER='VOLUNTEER'
 }
 
 export type AppNavigationParams = {
@@ -24,6 +26,8 @@ export type AppNavigationParams = {
   [APP_NAVIGATION.DONORLIST]:undefined;
   [APP_NAVIGATION.SEARCHNDONOR]:undefined;
   [APP_NAVIGATION.BLOODBANK]:undefined;
+  [APP_NAVIGATION.HELPLINE]:undefined;
+  [APP_NAVIGATION.VOLUNTEER]:undefined;
 };
 
 export enum AUTH_NAVIGATION {

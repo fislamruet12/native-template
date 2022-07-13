@@ -1,18 +1,15 @@
-import {
-  Box,
-  Button,
-  Select,
-  Text,
-} from 'native-base';
+import {useFormik} from 'formik';
+import {Box, Button, FormControl, Select, Text} from 'native-base';
 import React, {useState} from 'react';
 import {Alert, ScrollView} from 'react-native';
 import useDistrict from '../../../../hoc/useDistrict';
 import useDivision from '../../../../hoc/useDivision';
 import useThana from '../../../../hoc/useThana';
 import {bloodGroup, nearestArea} from '../../../../utils/blood';
-
+import * as Yup from 'yup';
 import {width} from '../../../../utils/handy';
-
+import {QueryDonorType} from '../../../../../typings/dataTypes';
+import { SEARCHDONOR_NAVIGATION } from '../../../../../typings/navigation';
 
 const SearchDonorFilterScreen = (props: any) => {
   const {divisionLoading, divisions} = useDivision();
@@ -25,9 +22,44 @@ const SearchDonorFilterScreen = (props: any) => {
   let [thana, setThana] = React.useState<number>(thanas[0].id);
 
   let [blood, setBlood] = useState<string>('O+');
-  let [distance, setDistance] = useState<string>('5');
+  let [distance, setDistance] = useState<string>(nearestArea[0].toString());
 
   //console.log(districts)
+
+  const validationSchema = Yup.object().shape({
+    blood_group: Yup.string().required('Blood group is required'),
+    division_id: Yup.number().test(
+      'selection',
+      'Division Required',
+      number => number !== undefined,
+    ),
+    district_id: Yup.number().test(
+      'selection',
+      'District Required',
+      number => number !== undefined,
+    ),
+    upazila_id: Yup.number().test(
+      'selection',
+      'Thana Required',
+      number => number !== undefined,
+    ),
+  });
+
+  const initialValues: QueryDonorType = {
+    blood_group: 'A+',
+    division_id: divisions[0].id,
+    district_id: districts[0].id,
+    upazila_id: thanas[0].id,
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: values => {
+      console.log(values);
+      props.navigation.navigate(SEARCHDONOR_NAVIGATION.SEARCHDONORLIST,values)
+    },
+  });
   return (
     <Box flex={1} bg={'white'} padding={5}>
       <ScrollView>
@@ -36,12 +68,12 @@ const SearchDonorFilterScreen = (props: any) => {
           justifyContent="space-between"
           alignItems={'center'}>
           <Box>
-          <Text fontFamily={"Montserrat-SemiBold"}>Division</Text>
-       
+            <Text fontFamily={'Montserrat-SemiBold'}>Division</Text>
+
             <Select
+              fontFamily={'Montserrat-Regular'}
               placeholder="Division List"
               selectedValue={division + ''}
-              
               width={width / 2 - 40}
               onValueChange={(itemValue: string) =>
                 setDivision(parseInt(itemValue))
@@ -56,9 +88,10 @@ const SearchDonorFilterScreen = (props: any) => {
             </Select>
           </Box>
           <Box>
-          <Text fontFamily={"Montserrat-SemiBold"}>District</Text>
-       
+            <Text fontFamily={'Montserrat-SemiBold'}>District</Text>
+
             <Select
+              fontFamily={'Montserrat-Regular'}
               placeholder="District List"
               selectedValue={district + ''}
               width={width / 2 - 40}
@@ -80,6 +113,7 @@ const SearchDonorFilterScreen = (props: any) => {
           <Text fontFamily={'Montserrat-SemiBold'}>Thana</Text>
 
           <Select
+            fontFamily={'Montserrat-Regular'}
             placeholder="Upazila List"
             selectedValue={thana + ''}
             // width={150}
@@ -96,12 +130,13 @@ const SearchDonorFilterScreen = (props: any) => {
           </Select>
         </Box>
 
-        <Box marginTop={6}>
+        {/* <Box marginTop={6}>
           <Box>
             <Text fontFamily={'Montserrat-SemiBold'}>Nearest Coverage</Text>
           </Box>
           <Box>
             <Select
+              fontFamily={'Montserrat-Regular'}
               placeholder="distance"
               selectedValue={distance}
               onValueChange={(itemValue: string) => setDistance(itemValue)}>
@@ -114,29 +149,33 @@ const SearchDonorFilterScreen = (props: any) => {
               ))}
             </Select>
           </Box>
-        </Box>
+        </Box> */}
         <Box marginTop={4}>
-          <Text fontFamily={'Montserrat-SemiBold'}>Blood Group</Text>
-
-          <Select
-            placeholder="Blood Group"
-            selectedValue={blood}
-            onValueChange={(itemValue: string) => setBlood(itemValue)}>
-            {bloodGroup.map(item => (
-              <Select.Item key={item} label={item} value={item} />
-            ))}
-          </Select>
+          <FormControl isRequired>
+            <FormControl.Label
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginBottom={1}>
+              Blood Group
+            </FormControl.Label>
+            <Select
+              fontFamily={'Montserrat-Regular'}
+              placeholder="Blood Group"
+              selectedValue={formik.values.blood_group}
+              onValueChange={formik.handleChange('blood_group')}>
+              {bloodGroup.map(item => (
+                <Select.Item key={item} label={item} value={item} />
+              ))}
+            </Select>
+          </FormControl>
         </Box>
-
         <Box>
           <Button
             mt={5}
-            _text={{fontFamily:'Montserrat-SemiBold'}}
-            onPress={() =>
-              Alert.alert("",'Under Developed')
-             // props.navigation.navigate(SEARCHDONOR_NAVIGATION.SEARCHDONORLIST)
-            }>
-            SEARCH DONOR
+            _text={{fontFamily: 'Montserrat-SemiBold'}}
+            onPress={
+              formik.handleSubmit
+             }>
+            SEARCH DONORS 
           </Button>
         </Box>
       </ScrollView>

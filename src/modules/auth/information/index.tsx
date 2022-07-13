@@ -10,7 +10,6 @@ import {
 } from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {icons} from '../../../assets/icons';
-import {District, Division, Upazila} from '../../../utils/country';
 import {Alert, ScrollView} from 'react-native';
 import {bloodGroup, genderList} from '../../../utils/blood';
 
@@ -26,21 +25,27 @@ import {doOnSubscribe} from '../../../utils/rxjs-utils';
 import {finalize} from 'rxjs/operators';
 import api from '../../../api';
 import {LatLong} from '../../../../typings/dataTypes';
-import useDivision from '../../../hoc/useDivision'
-import useDistrict from '../../../hoc/useDistrict'
+import useDivision from '../../../hoc/useDivision';
+import useDistrict from '../../../hoc/useDistrict';
 import useThana from '../../../hoc/useThana';
-import { ROOT_NAVIGATION } from '../../../../typings/navigation';
+import {ROOT_NAVIGATION} from '../../../../typings/navigation';
+import {store} from '../../../state';
+import {useDispatch} from 'react-redux';
+import actions from '../../../state/actions';
+import {User} from '../../../../typings/structures';
 
 const InformationScreen = (props: any) => {
   // console.log(props.route.params);
+  const dispatch = useDispatch();
+  const userinfo = store.getState().currentUser.user;
   let currentPos = props.route.params as LatLong;
-  let {divisionLoading,divisions}=useDivision()
+  let {divisionLoading, divisions} = useDivision();
 
   let [division, setDivisions] = React.useState<number>(divisions[0].id);
-  const {districtLoading,districts}=useDistrict(division)
+  const {districtLoading, districts} = useDistrict(division);
 
   let [district, setDistrict] = React.useState<number>(districts[0].id);
-  let {thanaLoading,thanas}=useThana(district)
+  let {thanaLoading, thanas} = useThana(district);
 
   const [loading, setLoading] = useState(false);
 
@@ -52,8 +57,8 @@ const InformationScreen = (props: any) => {
   const getFullAdress = () => {
     let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${currentPos.latitude},${currentPos.longitude}&key=${KEY}`;
     axios.get(url).then(res => {
-     // setaddress(res?.data?.results[0]?.formatted_address);
-      formik.setFieldValue('address',res?.data?.results[0]?.formatted_address)
+      // setaddress(res?.data?.results[0]?.formatted_address);
+      formik.setFieldValue('address', res?.data?.results[0]?.formatted_address);
     });
   };
 
@@ -84,7 +89,6 @@ const InformationScreen = (props: any) => {
     ),
   });
 
-
   const initialValues: UserDetails = {
     name: '',
     email: '',
@@ -104,7 +108,7 @@ const InformationScreen = (props: any) => {
     initialValues,
     validationSchema,
     onSubmit: values => {
-      console.log(values)
+      console.log(values);
       api.auth
         .userDetailsRequest$(values)
         .pipe(
@@ -113,19 +117,30 @@ const InformationScreen = (props: any) => {
         )
         .subscribe({
           next: response => {
-       //     console.log('Result', response.data);
-            props.navigation.navigate(ROOT_NAVIGATION.DRAWER)
+            //console.log('Result', response.data);
+            const res = response.data.data;
+            //  console.log('res',res,res?.name)
+            const demouser: any = {
+              name: res?.name,
+              email: res?.email,
+              id: userinfo?.id,
+              accessToken: userinfo?.accessToken,
+              countryCode: userinfo?.countryCode,
+              phoneNumber: userinfo?.phoneNumber,
+            };
+            //  console.log('demo',demouser)
+            dispatch(actions.user.saveUser(demouser));
+            props.navigation.navigate(ROOT_NAVIGATION.DRAWER);
           },
           error: error => {
-          //  console.log(error);
-            Alert.alert('Donor Info','Update Successfully.');
+            console.log(error);
+            Alert.alert('Donor Info', 'Something Wrong.');
           },
         });
     },
   });
 
-
- //console.log(formik.errors,formik.values);
+  //console.log(formik.errors,formik.values);
   return (
     <Box flex={1} bg={'white'}>
       <ScrollView style={{padding: 15}}>
@@ -134,45 +149,59 @@ const InformationScreen = (props: any) => {
           justifyContent="space-between"
           alignItems={'center'}>
           <Box>
-            <FormControl isRequired isInvalid={formik.errors.division_id && formik.touched.division_id}>
-              <FormControl.Label marginBottom={1}>Division</FormControl.Label>
+            <FormControl
+              isRequired
+              isInvalid={
+                formik.errors.division_id && formik.touched.division_id
+              }>
+              <FormControl.Label
+                _text={{fontFamily: 'Montserrat-SemiBold'}}
+                marginBottom={1}>
+                Division
+              </FormControl.Label>
               <Select
                 placeholder="Division List"
-                selectedValue={formik.values.division_id+''}
+                fontFamily={'Montserrat-Regular'}
+                selectedValue={formik.values.division_id + ''}
                 width={width / 2 - 40}
                 onValueChange={(itemValue: string) => {
-                  formik.setFieldValue('division_id',parseInt(itemValue))
-                  setDivisions(parseInt(itemValue))
+                  formik.setFieldValue('division_id', parseInt(itemValue));
+                  setDivisions(parseInt(itemValue));
                 }}>
                 {divisions.map(item => (
                   <Select.Item
                     key={item.id}
                     label={item.name_en}
-                    value={item.id+''}
+                    value={item.id + ''}
                   />
                 ))}
               </Select>
               <FormControl.ErrorMessage marginLeft={1}>
-              {formik.errors.division_id}
-            </FormControl.ErrorMessage>
+                {formik.errors.division_id}
+              </FormControl.ErrorMessage>
             </FormControl>
           </Box>
           <Box>
             <FormControl isRequired isInvalid={false}>
-              <FormControl.Label marginBottom={1}>District</FormControl.Label>
+              <FormControl.Label
+                _text={{fontFamily: 'Montserrat-SemiBold'}}
+                marginBottom={1}>
+                District
+              </FormControl.Label>
               <Select
                 placeholder="District List"
-                selectedValue={formik.values.district_id+''}
+                fontFamily={'Montserrat-Regular'}
+                selectedValue={formik.values.district_id + ''}
                 width={width / 2 - 40}
                 onValueChange={(itemValue: string) => {
-                  formik.setFieldValue('district_id',parseInt(itemValue))
-                  setDistrict(parseInt(itemValue))
-                  }}>
+                  formik.setFieldValue('district_id', parseInt(itemValue));
+                  setDistrict(parseInt(itemValue));
+                }}>
                 {districts.map(item => (
                   <Select.Item
                     key={item.id}
                     label={item.name_en}
-                    value={item.id+''}
+                    value={item.id + ''}
                   />
                 ))}
               </Select>
@@ -182,52 +211,72 @@ const InformationScreen = (props: any) => {
 
         <Box marginTop={4}>
           <FormControl isRequired isInvalid={false}>
-            <FormControl.Label marginBottom={1}>Thana</FormControl.Label>
+            <FormControl.Label
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginBottom={1}>
+              Thana
+            </FormControl.Label>
             <Select
               placeholder="Upazila List"
-              selectedValue={formik.values.upazila_id+''}
+              fontFamily={'Montserrat-Regular'}
+              selectedValue={formik.values.upazila_id + ''}
               // width={150}
-              onValueChange={(itemValue: string) => formik.setFieldValue('upazila_id',parseInt(itemValue))}>
+              onValueChange={(itemValue: string) =>
+                formik.setFieldValue('upazila_id', parseInt(itemValue))
+              }>
               {thanas.map(item => (
                 <Select.Item
                   key={item.id}
                   label={item.name_en}
-                  value={item.id+''}
+                  value={item.id + ''}
                 />
               ))}
             </Select>
           </FormControl>
         </Box>
         <Box marginTop={4}>
-          <Heading size={'sm'} marginBottom={1}>
+          <Text fontFamily={'Montserrat-SemiBold'} marginBottom={1}>
             Address:
-          </Heading>
+          </Text>
           <Box padding={2} flexDirection="row">
             <Image
               source={icons.pin}
               alt="loc"
               style={{width: 20, height: 20}}
             />
-            <Text bold>{formik.values.address}</Text>
+            <Text fontFamily={'Montserrat-SemiBold'}>
+              {formik.values.address}
+            </Text>
           </Box>
         </Box>
         <Box marginTop={4}>
-          <FormControl isRequired >
-            <FormControl.Label marginBottom={1}>Gender</FormControl.Label>
+          <FormControl isRequired>
+            <FormControl.Label
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginBottom={1}>
+              Gender
+            </FormControl.Label>
             <Select
+              fontFamily={'Montserrat-Regular'}
+              fontFamily={'Montserrat-Regular'}
               placeholder="Gender"
               selectedValue={formik.values.gender}
               onValueChange={formik.handleChange('gender')}>
               {genderList.map(item => (
                 <Select.Item key={item} label={item} value={item} />
               ))}
-            </Select>  
+            </Select>
           </FormControl>
         </Box>
         <Box marginTop={4}>
-          <FormControl isRequired >
-            <FormControl.Label marginBottom={1}>Blood Group</FormControl.Label>
+          <FormControl isRequired>
+            <FormControl.Label
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginBottom={1}>
+              Blood Group
+            </FormControl.Label>
             <Select
+              fontFamily={'Montserrat-Regular'}
               placeholder="Blood Group"
               selectedValue={formik.values.blood_group}
               onValueChange={formik.handleChange('blood_group')}>
@@ -238,8 +287,12 @@ const InformationScreen = (props: any) => {
           </FormControl>
         </Box>
         <Box marginTop={4}>
-          <FormControl isRequired isInvalid={formik.errors.name && formik.touched.name}>
-            <FormControl.Label>Donor Name</FormControl.Label>
+          <FormControl
+            isRequired
+            isInvalid={formik.errors.name && formik.touched.name}>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Donor Name
+            </FormControl.Label>
             <Input
               type="text"
               placeholder="Donor name"
@@ -247,50 +300,70 @@ const InformationScreen = (props: any) => {
               onChangeText={formik.handleChange('name')}
               onBlur={formik.handleBlur('name')}
             />
-            <FormControl.ErrorMessage marginLeft={1}>
+            <FormControl.ErrorMessage
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginLeft={1}>
               {formik.errors.name}
             </FormControl.ErrorMessage>
           </FormControl>
         </Box>
         <Box marginTop={4}>
           <FormControl>
-            <FormControl.Label>Donor Email</FormControl.Label>
-            <Input type="text" placeholder="Donor Email" 
-             value={formik.values.email}
-             onChangeText={formik.handleChange('email')}
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Donor Email
+            </FormControl.Label>
+            <Input
+              type="text"
+              placeholder="Donor Email"
+              value={formik.values.email}
+              onChangeText={formik.handleChange('email')}
             />
           </FormControl>
         </Box>
         <Box marginTop={4}>
-          <FormControl isRequired isInvalid={formik.errors.NID_number&&formik.touched.NID_number}>
-            <FormControl.Label>Donor NID</FormControl.Label>
-            <Input type="text" placeholder="NID Here" 
-            value={formik.values.NID_number}
+          <FormControl
+            isRequired
+            isInvalid={formik.errors.NID_number && formik.touched.NID_number}>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Donor NID
+            </FormControl.Label>
+            <Input
+              type="text"
+              placeholder="NID Here"
+              value={formik.values.NID_number}
               onChangeText={formik.handleChange('NID_number')}
               onBlur={formik.handleBlur('NID_number')}
             />
-            <FormControl.ErrorMessage marginLeft={1}>
+            <FormControl.ErrorMessage
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginLeft={1}>
               {formik.errors.NID_number}
             </FormControl.ErrorMessage>
           </FormControl>
         </Box>
         <Box marginTop={4}>
-          <FormControl isRequired >
-            <FormControl.Label>Birth Date:</FormControl.Label>
+          <FormControl isRequired>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Birth Date:
+            </FormControl.Label>
             <ModernDatePicker
               head={`Date of Birth`}
               date={formik.values.birth_date}
-              getDatefromDatePicker={(date: string) => formik.setFieldValue('birth_date',date)}
+              getDatefromDatePicker={(date: string) =>
+                formik.setFieldValue('birth_date', date)
+              }
               error={''}
             />
           </FormControl>
         </Box>
 
         <Box marginBottom={5}>
-          <Button 
-          isLoading={divisionLoading}
-          isLoadingText="Loading data.."
-          mt={5} onPress={formik.handleSubmit}>
+          <Button
+            _text={{fontFamily: 'Montserrat-SemiBold'}}
+            isLoading={divisionLoading || loading}
+            isLoadingText="Requesting"
+            mt={5}
+            onPress={formik.handleSubmit}>
             CONFIRM INFORMATION
           </Button>
         </Box>

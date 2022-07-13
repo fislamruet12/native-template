@@ -6,6 +6,7 @@ import {
   Image,
   Input,
   Link,
+  Text,
 } from 'native-base';
 import React, {useState} from 'react';
 import {AUTH_NAVIGATION} from '../../../../typings/navigation';
@@ -64,8 +65,8 @@ const SignInScreen = (props: any) => {
             }
           },
           error: error => {
-            console.log(error?.response);
-         
+            console.log(error);
+
             Alert.alert(
               '',
               error?.response?.data?.data
@@ -84,17 +85,21 @@ const SignInScreen = (props: any) => {
           <Image
             source={icons.logo}
             alt="loc"
-            style={{width: 50, height: 50}}
+            style={{width: 80, height: 80}}
           />
         </Box>
         <Box>
-          <Heading>Sign In</Heading>
+          <Text fontFamily="Montserrat-Bold" fontSize={22}>
+            SIGN IN
+          </Text>
         </Box>
         <Box marginTop={4}>
           <FormControl
             isRequired
             isInvalid={formik.errors.phoneNumber && formik.touched.phoneNumber}>
-            <FormControl.Label>Phone Number</FormControl.Label>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Phone Number
+            </FormControl.Label>
             <Input
               type="text"
               placeholder="phone number"
@@ -102,7 +107,9 @@ const SignInScreen = (props: any) => {
               onChangeText={formik.handleChange('phoneNumber')}
               onBlur={formik.handleBlur('phoneNumber')}
             />
-            <FormControl.ErrorMessage marginLeft={1}>
+            <FormControl.ErrorMessage
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginLeft={1}>
               {formik.errors.phoneNumber}
             </FormControl.ErrorMessage>
           </FormControl>
@@ -111,7 +118,9 @@ const SignInScreen = (props: any) => {
           <FormControl
             isRequired
             isInvalid={formik.errors.password && formik.touched.password}>
-            <FormControl.Label>Password</FormControl.Label>
+            <FormControl.Label _text={{fontFamily: 'Montserrat-SemiBold'}}>
+              Password
+            </FormControl.Label>
             <Input
               type="password"
               placeholder="password "
@@ -119,7 +128,9 @@ const SignInScreen = (props: any) => {
               onChangeText={formik.handleChange('password')}
               onBlur={formik.handleBlur('password')}
             />
-            <FormControl.ErrorMessage marginLeft={1}>
+            <FormControl.ErrorMessage
+              _text={{fontFamily: 'Montserrat-SemiBold'}}
+              marginLeft={1}>
               {formik.errors.password}
             </FormControl.ErrorMessage>
           </FormControl>
@@ -132,6 +143,7 @@ const SignInScreen = (props: any) => {
                 fontSize: 'xs',
                 fontWeight: '500',
                 color: 'indigo.500',
+                fontFamily: 'Montserrat-SemiBold',
               }}
               alignSelf="flex-end"
               mt="3">
@@ -140,6 +152,7 @@ const SignInScreen = (props: any) => {
           </FormControl>
           <Button
             mt={3}
+            _text={{fontFamily: 'Montserrat-SemiBold'}}
             isLoading={loading}
             isLoadingText="Signing..."
             onPress={formik.handleSubmit}>
@@ -147,6 +160,7 @@ const SignInScreen = (props: any) => {
           </Button>
           <Button
             mt={'3'}
+            _text={{fontFamily: 'Montserrat-SemiBold'}}
             onPress={() => props.navigation.navigate(AUTH_NAVIGATION.PHONE)}>
             REGISTER
           </Button>

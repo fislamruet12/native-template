@@ -12,7 +12,7 @@ const DonorListItem = (props: any) => {
   const [donorlist, setdonorlist] = useState<Array<DonorDetailType>>([]);
 
   useEffect(() => {
-    // getDonorList();
+    getDonorList();
   }, []);
   const getDonorList = () => {
     api.donorList
@@ -49,10 +49,10 @@ const DonorListItem = (props: any) => {
               </Text>
               <Text fontSize={10} underline={true} fontFamily={'Montserrat-Regular'}>{item.gender}</Text>
             </Box>
-            <Text fontFamily={'Roboto-Regular'} fontSize={16} maxWidth={260}>
+            <Text my={1} lineHeight={16} fontFamily={'Roboto-Regular'} fontSize={16} maxWidth={260}>
               {item.address}
             </Text>
-            <Text fontFamily={'Montserrat-Regular'}>{item.phone_number}</Text>
+            <Text  fontFamily={'Montserrat-Regular'}>{item.phone_number}</Text>
           </Box>
           <Box alignItems={'flex-end'}>
             <Box flexDirection={'row'}>

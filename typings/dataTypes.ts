@@ -37,3 +37,20 @@ export type BloodBankType={
     upazila: ThanaType;
   };
   
+  export type HelpLineType = {
+    id: number;
+    name: string;
+    contact_number:string; 
+  }
+  export type VolunteerType = {
+    id: number;
+    name: string;
+    phone_number:string; 
+  }
+
+  export type QueryDonorType={
+    blood_group: string,
+    division_id: number,
+    district_id: number,
+    upazila_id: number,
+  }

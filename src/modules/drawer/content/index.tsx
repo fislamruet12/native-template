@@ -43,7 +43,7 @@ const ContentDrawerScreen = (props: any) => {
 }
 </View>
 {
-       <View
+     user &&   <View
          padding={5}
          flexDirection="row"
          justifyContent="space-between"

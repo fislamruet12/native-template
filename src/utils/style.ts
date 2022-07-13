@@ -16,11 +16,12 @@ export const styles = StyleSheet.create({
       borderWidth: 0,
       borderBottomWidth: 1,
       color:'#000',
-      fontWeight:'500'
+      fontFamily:'Montserrat-SemiBold'
     },
   
     underlineStyleHighLighted: {
       borderColor: "#03DAC6",
-      color:'red'
+      color:'red',
+      fontFamily:'Montserrat-SemiBold'
     },
   });

@@ -23,7 +23,7 @@ export type UserDetails = {
   blood_group: string;
   birth_date: string;
   NID_number: string;
-  gender:string;
+  gender: string;
   latitude: number;
   longitude: number;
   address: string;
@@ -31,3 +31,4 @@ export type UserDetails = {
   district_id: number;
   upazila_id: number;
 };
+
