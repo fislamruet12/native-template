@@ -101,7 +101,7 @@ const SignInScreen = (props: any) => {
               Phone Number
             </FormControl.Label>
             <Input
-              type="text"
+              keyboardType='phone-pad'
               placeholder="phone number"
               value={formik.values.phoneNumber}
               onChangeText={formik.handleChange('phoneNumber')}

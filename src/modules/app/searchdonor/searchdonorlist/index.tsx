@@ -15,7 +15,7 @@ const SearchDonorListScreen = (props: any) => {
   const { blood_group,division_id,district_id,upazila_id} = props.route.params;
   const [loading, setLoading] = useState(false);
   const [donorlist, setdonorlist] = useState<Array<DonorDetailType>>([]);
-
+  console.log('values',props.route.params)
   useEffect(() => {
     getDonorList();
   }, []);

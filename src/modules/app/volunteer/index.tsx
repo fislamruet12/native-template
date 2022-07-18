@@ -34,9 +34,9 @@ const VolunteerScreen = () => {
   const renderItem = ({item}: {item: VolunteerType}) => (
     <Box bg="white" marginBottom={2} rounded="md" padding={3}>
       <Box flexDirection={'row'} alignItems="center">
-        <Box width={width / 8}>
+      <Box width={width / 8} borderRightColor="coolGray.400" borderRightWidth={.5}>
           <Box alignSelf={'center'}>
-            <Image source={icons.organ} alt="organ" />
+            <Image source={icons.information} alt="organ" style={{height:40,width:40}} />
           </Box>
         </Box>
         <Box
@@ -53,8 +53,9 @@ const VolunteerScreen = () => {
           </Box>
           <Box>
             <Button
+              bg={'#bd4c38'}
               onPress={() => Linking.openURL(`tel:+88${item.phone_number}`)}
-              _text={{fontFamily: 'Montserrat-Regular'}}>
+              _text={{fontFamily: 'Montserrat-Bold',letterSpacing:1}}>
               CALL
             </Button>
           </Box>

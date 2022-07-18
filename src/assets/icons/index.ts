@@ -16,6 +16,8 @@ import contract from './contract.png'
 import user from './user.png'
 import organ from './organ.png'
 import sort from './sort.png'
+import helpline from './helpline.png'
+import information from './information.png'
 export const icons={
     theory,
     blooddonor,
@@ -34,5 +36,7 @@ export const icons={
     contract,
     user,
     organ,
-    sort
+    sort,
+    helpline,
+    information
 }

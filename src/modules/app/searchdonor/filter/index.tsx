@@ -73,10 +73,13 @@ const SearchDonorFilterScreen = (props: any) => {
             <Select
               fontFamily={'Montserrat-Regular'}
               placeholder="Division List"
-              selectedValue={division + ''}
+              selectedValue={formik.values.division_id + ''}
               width={width / 2 - 40}
-              onValueChange={(itemValue: string) =>
-                setDivision(parseInt(itemValue))
+              onValueChange={(itemValue: string) =>{
+              //  setDivision(parseInt(itemValue))
+                formik.setFieldValue('division_id',parseInt(itemValue))
+              }
+
               }>
               {divisions.map(item => (
                 <Select.Item
@@ -93,10 +96,10 @@ const SearchDonorFilterScreen = (props: any) => {
             <Select
               fontFamily={'Montserrat-Regular'}
               placeholder="District List"
-              selectedValue={district + ''}
+              selectedValue={formik.values.district_id + ''}
               width={width / 2 - 40}
               onValueChange={(itemValue: string) =>
-                setDistrict(parseInt(itemValue))
+                formik.setFieldValue('district_id',parseInt(itemValue))
               }>
               {districts.map(item => (
                 <Select.Item
@@ -115,10 +118,10 @@ const SearchDonorFilterScreen = (props: any) => {
           <Select
             fontFamily={'Montserrat-Regular'}
             placeholder="Upazila List"
-            selectedValue={thana + ''}
+            selectedValue={formik.values.upazila_id + ''}
             // width={150}
             onValueChange={(itemValue: string) =>
-              setThana(parseInt(itemValue))
+              formik.setFieldValue('upazila_id',parseInt(itemValue))
             }>
             {thanas.map(item => (
               <Select.Item

@@ -1,5 +1,5 @@
 import {DrawerContentScrollView} from '@react-navigation/drawer';
-import {Box, Input, Text, View} from 'native-base';
+import {Text, View} from 'native-base';
 import React from 'react';
 import {Image} from 'react-native';
 import {TouchableOpacity} from 'react-native';
@@ -19,10 +19,10 @@ const ContentDrawerScreen = (props: any) => {
   return (
     <DrawerContentScrollView {...props}>
       <View flex={1}>
-        <View bg={'primary.100'} rounded="md">
+        <View >
 
        
-        <View alignSelf={'center'} padding={5} borderColor="coolGray.400" borderWidth={.5} rounded="full">
+        <View alignSelf={'center'} padding={5} >
           <Image source={icons.logo} style={{width: 50, height: 50}} />
         </View>
        {
@@ -67,7 +67,7 @@ const ContentDrawerScreen = (props: any) => {
                 }
                 }
              }}>
-             {user ?
+             {user && user?.name!=""  && user?.name!=undefined ?
                <Text fontFamily={"Montserrat-SemiBold"}>SIGN OUT</Text> 
                : <Text fontFamily={"Montserrat-SemiBold"}>SIGN IN</Text>
               }
@@ -75,7 +75,8 @@ const ContentDrawerScreen = (props: any) => {
          </View>
        </View>
        }
-        <View
+        {
+          user && <View
           padding={5}
           flexDirection="row"
           justifyContent="space-between"
@@ -91,6 +92,7 @@ const ContentDrawerScreen = (props: any) => {
             <Text fontFamily={"Montserrat-SemiBold"}>PROFILE</Text>
           </View>
         </View>
+        }
         <View
           padding={5}
           flexDirection="row"

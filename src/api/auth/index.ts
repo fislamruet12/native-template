@@ -8,6 +8,7 @@ import {
   UserDetails,
 } from '../../../typings/form-data';
 import client from '../../api/client';
+import axios from 'axios';
 
 const signInRequest$ = (data: SignInData): Observable<User> =>
   client
@@ -62,11 +63,12 @@ const signUpConfirmRequest$ = (data: SignUpConfirmData): Observable<any> =>
     otp: data.otp,
   });
 
-const SignOutRequest$ = () => client.get('logout').pipe(
-  map(response=>{
-    console.log(response)
-  })
-)
+const SignOutRequest$ = () =>{
+    client.axiosClone.get('logout')
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+}
+
 
 export default {
   signInRequest$,

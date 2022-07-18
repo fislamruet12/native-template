@@ -4,7 +4,11 @@ import {Alert, Image, ScrollView} from 'react-native';
 import {icons} from '../../../assets/icons';
 import {bloodGroup} from '../../../utils/blood';
 import {BG, width} from '../../../utils/handy';
-import {APP_NAVIGATION, ROOT_NAVIGATION} from '../../../../typings/navigation';
+import {
+  APP_NAVIGATION,
+  ROOT_NAVIGATION,
+  SEARCHDONOR_NAVIGATION,
+} from '../../../../typings/navigation';
 import _ from 'lodash';
 import ActionButton from 'react-native-circular-action-menu';
 import {useSelector} from 'react-redux';
@@ -30,8 +34,29 @@ const DashBoardScreen = (props: any) => {
     } else privateRoute();
   };
 
+  const donorListOnlyBloodGroup = (group: any) => {
+    if (user) {
+      if (user.name != ''){
+        props.navigation.push(
+          SEARCHDONOR_NAVIGATION.SEARCHDONORLIST,
+          {
+            blood_group:group,
+            division_id: 0,
+            district_id: 0,
+            upazila_id: 0,
+          },
+        );
+       
+      }
+      else {
+        privateRoute();
+      }
+    } else privateRoute();
+
+    setheights(TNT);
+  };
   return (
-    <Box flex={1} safeAreaTop bg="gray.300" alignItems={'center'}>
+    <Box flex={1} safeAreaTop bg="gray.200" alignItems={'center'}>
       <ScrollView>
         {user ? (
           user?.name != '' ? (
@@ -65,11 +90,16 @@ const DashBoardScreen = (props: any) => {
               <Center
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={2}>
-                <Box bg="coolGray.500" p={3} rounded="full">
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
                   <Image
-                    style={{width: 40, height: 40}}
+                    style={{width: 30, height: 30}}
                     source={icons.blooddonor}
                   />
                 </Box>
@@ -85,12 +115,17 @@ const DashBoardScreen = (props: any) => {
                 mx={1}
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={3}>
-                <Box bg="coolGray.500" p={3} rounded="full">
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
                   <Image
                     source={icons.searchdonor}
-                    style={{width: 45, height: 45}}
+                    style={{width: 35, height: 35}}
                   />
                 </Box>
                 <Text fontFamily={'Montserrat-SemiBold'}>Search Donor</Text>
@@ -100,10 +135,15 @@ const DashBoardScreen = (props: any) => {
               <Center
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={2}>
-                <Box bg="coolGray.500" p={3} rounded="full">
-                  <Image source={icons.donor} style={{width: 45, height: 45}} />
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
+                  <Image source={icons.donor} style={{width: 30, height: 30}} />
                 </Box>
                 <Text fontFamily={'Montserrat-SemiBold'}>Active Donor</Text>
               </Center>
@@ -112,15 +152,20 @@ const DashBoardScreen = (props: any) => {
           <Flex direction="row" mb="2.5">
             <Pressable
               onPress={_.debounce(
-                () => Alert.alert('', 'Under Developed'),
+                () =>donorList(APP_NAVIGATION.REQUEST),
                 200,
               )}>
               <Center
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={2}>
-                <Box bg="coolGray.500" p={3} rounded="full">
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
                   <Image source={icons.blood} style={{width: 30, height: 30}} />
                 </Box>
                 <Text fontFamily={'Montserrat-SemiBold'}>Blood Request</Text>
@@ -129,16 +174,21 @@ const DashBoardScreen = (props: any) => {
 
             <Pressable
               onPress={_.debounce(
-                () => Alert.alert('', 'Under Developed'),
+                () => donorList(APP_NAVIGATION.FEED),
                 200,
               )}>
               <Center
                 mx={1}
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={3}>
-                <Box bg="coolGray.500" p={3} rounded="full">
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
                   <Image
                     source={icons.contract}
                     style={{width: 30, height: 30}}
@@ -155,10 +205,15 @@ const DashBoardScreen = (props: any) => {
               <Center
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={2}>
-                <Box bg="coolGray.500" p={3} rounded="full">
-                  <Image source={icons.bank} />
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
+                  <Image source={icons.bank} style={{width: 30, height: 30}} />
                 </Box>
                 <Text fontFamily={'Montserrat-SemiBold'}>Blood Bank</Text>
               </Center>
@@ -187,13 +242,13 @@ const DashBoardScreen = (props: any) => {
             buttonColor={BG}>
             {bloodGroup.map((value, index) => (
               <ActionButton.item
-                onPress={() => {
-                  setheights(TNT);
-                }}
+                onPress={() =>donorListOnlyBloodGroup(value)}
                 key={value}>
                 <Center
                   rounded="full"
                   size="md"
+                  borderColor={BG}
+                  borderWidth={2}
                   bg={'red.' + (index + 2) * 100}
                   m={1}
                   mt={4}>
@@ -216,9 +271,14 @@ const DashBoardScreen = (props: any) => {
               <Center
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={2}>
-                <Box bg="coolGray.500" p={3} rounded="full">
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
                   <Image source={icons.help} />
                 </Box>
                 <Text fontFamily={'Montserrat-SemiBold'}>Help Line</Text>
@@ -233,9 +293,14 @@ const DashBoardScreen = (props: any) => {
                 mx={1}
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={3}>
-                <Box bg="coolGray.500" p={3} rounded="full">
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
                   <Image
                     source={icons.volunteer}
                     style={{width: 30, height: 30}}
@@ -252,9 +317,14 @@ const DashBoardScreen = (props: any) => {
               <Center
                 rounded={'xl'}
                 size={width / 3 - 10}
-                borderColor="coolGray.100"
+                borderColor={BG}
                 borderWidth={2}>
-                <Box bg="coolGray.500" p={3} rounded="full">
+                <Box
+                  borderColor={BG}
+                  borderWidth={2}
+                  bg="coolGray.500"
+                  p={3}
+                  rounded="full">
                   <Image source={icons.update} style={{tintColor: 'red'}} />
                 </Box>
                 <Text fontFamily={'Montserrat-SemiBold'}>Update Donor</Text>

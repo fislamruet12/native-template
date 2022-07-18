@@ -18,7 +18,9 @@ export enum APP_NAVIGATION {
   SEARCHNDONOR='SEARCHDONOR',
   BLOODBANK='BLOODBANK',
   HELPLINE ='HLPLINE',
-  VOLUNTEER='VOLUNTEER'
+  VOLUNTEER='VOLUNTEER',
+  REQUEST='REQUEST',
+  FEED='FEED'
 }
 
 export type AppNavigationParams = {
@@ -28,6 +30,8 @@ export type AppNavigationParams = {
   [APP_NAVIGATION.BLOODBANK]:undefined;
   [APP_NAVIGATION.HELPLINE]:undefined;
   [APP_NAVIGATION.VOLUNTEER]:undefined;
+  [APP_NAVIGATION.REQUEST]:undefined;
+  [APP_NAVIGATION.FEED]:undefined;
 };
 
 export enum AUTH_NAVIGATION {
@@ -71,6 +75,14 @@ export enum DONORLIST_NAVIGATION{
 }
 export const DonorListNavigationParams={
   [DONORLIST_NAVIGATION.DONORLISTITEM]:undefined
+}
+export enum REQUEST_NAVIGATION{
+  BLOOD='BLOOD',
+ 
+}
+export type RequestNavigationParams={
+  [REQUEST_NAVIGATION.BLOOD]:undefined;
+ 
 }
 
 

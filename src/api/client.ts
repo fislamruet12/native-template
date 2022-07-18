@@ -28,11 +28,11 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
+const axiosClone=axiosInstance
 const get = <T>(url: string, config?: AxiosRequestConfig): Observable<AxiosResponse<T>> => from(axiosInstance.get<T>(url, config));
 
 const post = <T>(url: string, data?: any, config?: AxiosRequestConfig): Observable<AxiosResponse<T>> => from(axiosInstance.post<T>(url, data, config));
 
 const put= <T>(url:string, data?:any,config?:AxiosRequestConfig):Observable<AxiosResponse<T>> =>from (axiosInstance.put<T>(url,data,config))
 
-export default { get, post,put };
+export default { get, post,put ,axiosClone};

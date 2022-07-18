@@ -32,3 +32,15 @@ export type UserDetails = {
   upazila_id: number;
 };
 
+export type RequestType = {
+  name: string;
+  contact_number: string;
+  required_blood_group: string;
+  blood_need_date: string;
+  reason_of_blood: string;
+  hospital_name: string;
+  amount_blood: number;
+  hospital_address: string;
+ 
+};
+
