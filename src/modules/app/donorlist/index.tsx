@@ -1,15 +1,14 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { DONORLIST_NAVIGATION } from '../../../../typings/navigation';
+import { APP_NAVIGATION, DONORLIST_NAVIGATION } from '../../../../typings/navigation';
 import DonorListItem from './listitem';
+import MapDirectionScreen from '../mapdirection';
 
 const Stack = createNativeStackNavigator();
 const DonorListScreen = (props: any) => {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
+      >
       <Stack.Screen
         options={{
           headerShown: true,
@@ -18,6 +17,15 @@ const DonorListScreen = (props: any) => {
         }}
         name={DONORLIST_NAVIGATION.DONORLISTITEM}
         component={DonorListItem}
+      />
+       <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle:"DONOR IN MAP",
+          headerTitleStyle: {fontFamily: 'Montserrat-SemiBold'},
+        }}
+        name={APP_NAVIGATION.MAPDIRECTION}
+        component={MapDirectionScreen}
       />
      
     </Stack.Navigator>

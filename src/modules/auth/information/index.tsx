@@ -127,6 +127,9 @@ const InformationScreen = (props: any) => {
               accessToken: userinfo?.accessToken,
               countryCode: userinfo?.countryCode,
               phoneNumber: userinfo?.phoneNumber,
+              latitude:userinfo?.latitude,
+              longitude:userinfo?.longitude
+
             };
             //  console.log('demo',demouser)
             dispatch(actions.user.saveUser(demouser));

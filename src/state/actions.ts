@@ -1,4 +1,5 @@
 import user from './user/actions';
+import language from './language/actions'
 export const LOG_OUT = 'LOG_OUT';
 
 export interface LogOutAction {
@@ -11,6 +12,7 @@ const logOut = (): LogOutAction => ({
 
 const actions = {
   user,
+  language
 };
 
 export default actions;

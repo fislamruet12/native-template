@@ -20,7 +20,13 @@ export type User = {
   accessToken: string;
   name:string;
   email:string;
+  latitude:number;
+  longitude:number;
 };
+
+export type LanType={
+  language:number;
+}
 
 
 export type DivisionType ={

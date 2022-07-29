@@ -61,10 +61,22 @@ const SearchDonorListScreen = (props: any) => {
           </Box>
           <Box alignItems={'flex-end'}>
             <Box flexDirection={'row'}>
+            <Box>
+                <Button
+                  size={'sm'}
+                  bg={'primary.900'}
+                  _text={{fontFamily: 'Montserrat-SemiBold'}}
+                  onPress={
+                    () => Alert.alert('', 'Under Developed')
+                    // props.navigation.navigate(SEARCHDONOR_NAVIGATION.SEARCHDONORLIST)
+                  }>
+                  MAP
+                </Button>
+              </Box>
               <Box>
                 <Button
                   size={'sm'}
-                  mr={3}
+                  mx={2}
                   bg={'primary.400'}
                   _text={{fontFamily: 'Montserrat-SemiBold'}}
                   onPress={() => Linking.openURL(`tel:+88${item.phone_number}`)}>

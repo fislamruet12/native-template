@@ -33,6 +33,7 @@ export type UserDetails = {
 };
 
 export type RequestType = {
+  id:number;
   name: string;
   contact_number: string;
   required_blood_group: string;

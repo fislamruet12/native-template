@@ -8,7 +8,7 @@ import {
   UserDetails,
 } from '../../../typings/form-data';
 import client from '../../api/client';
-import axios from 'axios';
+import { DonorDataType } from '../../../typings/dataTypes';
 
 const signInRequest$ = (data: SignInData): Observable<User> =>
   client
@@ -28,6 +28,8 @@ const signInRequest$ = (data: SignInData): Observable<User> =>
           accessToken: responseData.access_token,
           name: responseData.userDetails.name,
           email: responseData.userDetails.email,
+          latitude:92,
+          longitude:-123.23
         };
 
         return user;
@@ -63,11 +65,27 @@ const signUpConfirmRequest$ = (data: SignUpConfirmData): Observable<any> =>
     otp: data.otp,
   });
 
-const SignOutRequest$ = () =>{
-    client.axiosClone.get('logout')
-    .then(res=>console.log(res))
-    .catch(err=>console.log(err))
+const SignOutRequest$ = () => {
+  client.axiosClone.get('logout')
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
 }
+
+
+type GetDonorDataResponse = {
+  success: boolean;
+  message: string;
+  data: {
+    user: DonorDataType
+  };
+};
+const DonorDetailsRequest$ = (): Observable<DonorDataType> =>
+  client.get<GetDonorDataResponse>('get-donar-details').pipe(
+    map(response => {
+      const responseData = response.data.data.user
+      return responseData
+    })
+  )
 
 
 export default {
@@ -75,5 +93,6 @@ export default {
   signUpRequest$,
   signUpConfirmRequest$,
   userDetailsRequest$,
-  SignOutRequest$
+  SignOutRequest$,
+  DonorDetailsRequest$
 };

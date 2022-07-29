@@ -20,7 +20,9 @@ export enum APP_NAVIGATION {
   HELPLINE ='HLPLINE',
   VOLUNTEER='VOLUNTEER',
   REQUEST='REQUEST',
-  FEED='FEED'
+  FEED='FEED',
+  PROFILE='PROFILE',
+  MAPDIRECTION='MAPDIRECTION'
 }
 
 export type AppNavigationParams = {
@@ -32,6 +34,8 @@ export type AppNavigationParams = {
   [APP_NAVIGATION.VOLUNTEER]:undefined;
   [APP_NAVIGATION.REQUEST]:undefined;
   [APP_NAVIGATION.FEED]:undefined;
+  [APP_NAVIGATION.FEED]:undefined;
+  [APP_NAVIGATION.MAPDIRECTION]:undefined;
 };
 
 export enum AUTH_NAVIGATION {

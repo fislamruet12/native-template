@@ -13,12 +13,18 @@ import _ from 'lodash';
 import ActionButton from 'react-native-circular-action-menu';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../state/reducer';
-import {User} from '../../../../typings/structures';
+import {LanType, User} from '../../../../typings/structures';
 let TNT = 20;
 let TH = 200;
 
 const DashBoardScreen = (props: any) => {
   const [heights, setheights] = useState(TNT);
+  let lan = useSelector(
+    (state: RootState) => state.currentLanguage.lan?.language,
+  ) 
+
+ 
+  
   const user = useSelector(
     (state: RootState) => state.currentUser.user,
   ) as User;
@@ -75,7 +81,7 @@ const DashBoardScreen = (props: any) => {
                 </Box>
               </Box>
               <Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>WelCome Back !!</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"WelCome Back !!":"আপনাকে অভিনন্দন"}</Text>
               </Box>
             </Box>
           ) : null
@@ -89,6 +95,7 @@ const DashBoardScreen = (props: any) => {
               )}>
               <Center
                 rounded={'xl'}
+              //  bg="amber.100"
                 size={width / 3 - 10}
                 borderColor={BG}
                 borderWidth={2}>
@@ -103,7 +110,7 @@ const DashBoardScreen = (props: any) => {
                     source={icons.blooddonor}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Donor List</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Donor List":"রক্ত দাতা"}</Text>
               </Center>
             </Pressable>
             <Pressable
@@ -128,7 +135,7 @@ const DashBoardScreen = (props: any) => {
                     style={{width: 35, height: 35}}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Search Donor</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Search Donor":"রক্তদাতা খুঁজুন"}</Text>
               </Center>
             </Pressable>
             <Pressable onPress={() => Alert.alert('', 'Under Developed')}>
@@ -145,7 +152,7 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.donor} style={{width: 30, height: 30}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Active Donor</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Active Donor":"সক্রিয় রক্তদাতা"}</Text>
               </Center>
             </Pressable>
           </Flex>
@@ -168,7 +175,7 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.blood} style={{width: 30, height: 30}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Blood Request</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Blood Request":"রক্তের অনুরোধ"}</Text>
               </Center>
             </Pressable>
 
@@ -194,7 +201,7 @@ const DashBoardScreen = (props: any) => {
                     style={{width: 30, height: 30}}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Request List</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Request List":"অনুরোধের তালিকা"}</Text>
               </Center>
             </Pressable>
             <Pressable
@@ -215,7 +222,7 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.bank} style={{width: 30, height: 30}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Blood Bank</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Blood Bank":"রক্ত ব্যাংক"}</Text>
               </Center>
             </Pressable>
           </Flex>
@@ -281,7 +288,7 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.help} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Help Line</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Help Line":"হেল্প লাইন"}</Text>
               </Center>
             </Pressable>
             <Pressable
@@ -306,7 +313,7 @@ const DashBoardScreen = (props: any) => {
                     style={{width: 30, height: 30}}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Volunteers</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Volunteers":"স্বেচ্ছাসেবক"}</Text>
               </Center>
             </Pressable>
             <Pressable
@@ -327,7 +334,7 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.update} style={{tintColor: 'red'}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>Update Donor</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Update Donor":"দাতা আপডেট"}</Text>
               </Center>
             </Pressable>
           </Flex>

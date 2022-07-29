@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { height, width } from "./handy";
 
 export const styles = StyleSheet.create({
     borderStyleBase: {
@@ -17,6 +18,10 @@ export const styles = StyleSheet.create({
       borderBottomWidth: 1,
       color:'#000',
       fontFamily:'Montserrat-SemiBold'
+    },
+    maps: {
+      width: width,
+      height: height,
     },
   
     underlineStyleHighLighted: {

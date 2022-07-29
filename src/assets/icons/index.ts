@@ -18,6 +18,8 @@ import organ from './organ.png'
 import sort from './sort.png'
 import helpline from './helpline.png'
 import information from './information.png'
+import edit from './edit.png'
+import done from './done.png'
 export const icons={
     theory,
     blooddonor,
@@ -38,5 +40,7 @@ export const icons={
     organ,
     sort,
     helpline,
-    information
+    information,
+    edit,
+    done
 }

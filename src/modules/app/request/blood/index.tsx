@@ -46,6 +46,7 @@ const BloodResquestScreen = (props: any) => {
   });
 
   const initialValues: RequestType = {
+    id:-1,
     name: '',
     contact_number: '',
     required_blood_group: 'A+',
@@ -92,7 +93,7 @@ const BloodResquestScreen = (props: any) => {
             </FormControl.Label>
             <Input
               type="text"
-              placeholder="Donor name"
+              placeholder="Consumer name"
               value={formik.values.name}
               onChangeText={formik.handleChange('name')}
               onBlur={formik.handleBlur('name')}
@@ -194,7 +195,7 @@ const BloodResquestScreen = (props: any) => {
             </FormControl.Label>
             <Input
               type="text"
-              placeholder="Why you need blood"
+              placeholder="Why do you need blood"
               multiline
               numberOfLines={2}
               value={formik.values.reason_of_blood}

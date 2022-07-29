@@ -9,7 +9,7 @@ const ModernDatePicker = (props: any) => {
 
   useEffect(() => {
     setSelectedDate(props.date);
-  }, []);
+  }, [props.date]);
   const getDate = (date: string) => {
     if (show === true) setSelectedDate(date);
   };
@@ -22,6 +22,7 @@ const ModernDatePicker = (props: any) => {
     setShow(!show);
   };
   const cancelRef = React.useRef(null);
+  console.log(123,selectedDate,props.date)
   return (
     <Box>
       <TouchableOpacity activeOpacity={1} onPress={() => setShow(!show)}>

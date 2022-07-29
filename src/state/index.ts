@@ -8,7 +8,7 @@ import rootReducer from '../state/reducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['currentUser']
+ // whitelist: ['currentUser']
 };
 
 export const store = createStore(

@@ -6,10 +6,8 @@ import React, {useState, useEffect} from 'react';
 
 // import all the components we are going to use
 import {
-  StyleSheet,
   PermissionsAndroid,
   Platform,
-  ActivityIndicator,
 } from 'react-native';
 
 //import all the components we are going to use.

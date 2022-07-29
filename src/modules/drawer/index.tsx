@@ -10,6 +10,7 @@ import {width} from '../../utils/handy';
 import App from '../app';
 import DashBoardScreen from '../app/dashboard';
 import ContentDrawerScreen from './content';
+import ProfileScreen from './profile';
 const Drawer = createDrawerNavigator();
 const DrawerScreen = () => {
   return (
@@ -28,6 +29,8 @@ const DrawerScreen = () => {
         name={APP_NAVIGATION.DASHBOARD}
         component={DashBoardScreen}
       />
+
+      
     </Drawer.Navigator>
   );
 };

@@ -19,6 +19,7 @@ import VolunteerScreen from './app/volunteer';
 import SearchDonorListScreen from './app/searchdonor/searchdonorlist';
 import RequestScreen from './app/request';
 import FeedListScreen from './app/request/feed';
+import ProfileScreen from './drawer/profile';
 
 const Navigation = () => {
   const Stack = createNativeStackNavigator();
@@ -74,7 +75,7 @@ const Navigation = () => {
         name={SEARCHDONOR_NAVIGATION.SEARCHDONORLIST}
         component={SearchDonorListScreen}
       />
-       <Stack.Screen
+      <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: 'REQUESTED BLOOD LIST',
@@ -82,6 +83,16 @@ const Navigation = () => {
         }}
         name={APP_NAVIGATION.FEED}
         component={FeedListScreen}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: 'PROFILE',
+          headerTitleStyle: {fontFamily: 'Montserrat-SemiBold'},
+        }}
+        name={APP_NAVIGATION.PROFILE}
+        component={ProfileScreen}
       />
     </Stack.Navigator>
   );

@@ -6,12 +6,11 @@ import {icons} from '../../../../assets/icons';
 import {width} from '../../../../utils/handy';
 import {doOnSubscribe} from '../../../../utils/rxjs-utils';
 import {finalize} from 'rxjs/operators';
-import { BloodBankType } from '../../../../../typings/dataTypes';
+import {BloodBankType} from '../../../../../typings/dataTypes';
 const BankScreen = (props: any) => {
   const [loading, setLoading] = useState(false);
-  const [banklist,setbanklist]=useState<Array<BloodBankType>>([])
- 
- 
+  const [banklist, setbanklist] = useState<Array<BloodBankType>>([]);
+
   useEffect(() => {
     nearestBloodBank();
   }, []);
@@ -25,17 +24,15 @@ const BankScreen = (props: any) => {
       .subscribe({
         next: banks => {
           console.log('Result', banks);
-          setbanklist(banks)
+          setbanklist(banks);
         },
         error: error => {
           console.log(error);
         },
       });
   };
-  const renderItem = ({item}:{item: BloodBankType}) => (
-
+  const renderItem = ({item}: {item: BloodBankType}) => (
     <Box bg="white" marginBottom={2} rounded="md" padding={3}>
-   
       <Box flexDirection={'row'} alignItems="center">
         <Box width={width / 8}>
           <Box alignSelf={'center'}>
@@ -47,17 +44,18 @@ const BankScreen = (props: any) => {
           flexDirection={'row'}
           alignItems="center"
           justifyContent="space-between">
-          <Box ml={4} width={(7*width/12)}>
-            <Text fontFamily={'Roboto-Bold'} fontSize={18}>
+          <Box ml={4} width={(7 * width) / 12}>
+            <Text fontFamily={'Roboto-Bold'} fontSize={19} lineHeight={18}>
               {item.name}
             </Text>
-            <Text fontFamily={'Roboto-Regular'} fontSize={16} maxWidth={220}>
-            {item.address}
+            <Text fontFamily={'Roboto-Regular'} fontSize={15} maxWidth={220}>
+              {item.address}
             </Text>
             <Text fontFamily={'Montserrat-Regular'}>{item.phone_number_1}</Text>
           </Box>
           <Box>
             <Button
+            size={"sm"}
               onPress={() => Linking.openURL(`tel:+88${item.phone_number_1}`)}
               _text={{fontFamily: 'Montserrat-Regular'}}>
               CALL

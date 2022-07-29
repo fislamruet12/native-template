@@ -118,7 +118,7 @@ const PhoneAuthScreen = (props: any) => {
               Password
             </FormControl.Label>
             <Input
-              type="password"
+           //   type="password"
               placeholder="password "
               value={formik.values.password}
               onChangeText={formik.handleChange('password')}
@@ -141,7 +141,7 @@ const PhoneAuthScreen = (props: any) => {
               Confirm Password
             </FormControl.Label>
             <Input
-              type="password"
+             // type="password"
               placeholder="confirm password"
               value={formik.values.confirmPassword}
               onChangeText={formik.handleChange('confirmPassword')}
