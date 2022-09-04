@@ -37,7 +37,8 @@ const SearchDonorListScreen = (props: any) => {
       });
   };
   const renderItem = ({item}: {item: DonorDetailType}) => (
-    <Box bg="white" rounded="md" mb={2} padding={3}>
+    <Box>
+    <Box bg="white" mt={2} padding={3}>
       <Box flexDirection={'row'} alignItems="center">
         <Box width={width / 8}>
           <Box alignSelf={'center'} bg="primary.900" padding={3} rounded="full">
@@ -100,6 +101,8 @@ const SearchDonorListScreen = (props: any) => {
         </Box>
       </Box>
     </Box>
+      <Box height={.3} bg="primary.800" roundedBottom={'full'} />
+   </Box>
   );
   return (
     <Box bg={'#fafafa'} flex={1}>

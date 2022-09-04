@@ -33,7 +33,8 @@ const FeedListScreen = (props: any) => {
       });
   };
   const renderItem = ({item}: {item: RequestType}) => (
-    <Box bg="white" marginBottom={2} rounded="md" padding={3}>
+    <Box>  
+    <Box bg="white" marginTop={2} roundedTop="md" padding={3}>
       <Box borderBottomColor={'coolGray.200'} borderBottomWidth={1} mb={2}>
         <Box flexDirection={'row'} alignItems="center">
           <Box>
@@ -111,6 +112,8 @@ const FeedListScreen = (props: any) => {
           </Box>
         </Box>
       </Box>
+    </Box>
+    <Box height={.3} bg="primary.800" roundedBottom={'full'} />
     </Box>
   );
   return (
