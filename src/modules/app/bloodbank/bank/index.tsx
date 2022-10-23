@@ -1,6 +1,6 @@
-import {Box, Button, Heading, Image, Text} from 'native-base';
+import {Box, Button, Heading, Text} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, Linking} from 'react-native';
+import {ActivityIndicator, FlatList, Image, Linking} from 'react-native';
 import api from '../../../../api';
 import {icons} from '../../../../assets/icons';
 import {width} from '../../../../utils/handy';
@@ -33,34 +33,31 @@ const BankScreen = (props: any) => {
   };
   const renderItem = ({item}: {item: BloodBankType}) => (
     <Box bg="white" marginBottom={2} rounded="md" padding={3}>
-      <Box flexDirection={'row'} alignItems="center">
-        <Box width={width / 8}>
-          <Box alignSelf={'center'}>
-            <Image source={icons.organ} alt="organ" />
-          </Box>
+      <Box
+        flexDirection={'row'}
+        alignContent="center"
+        justifyContent={'space-between'}>
+        <Box>
+          <Image source={icons.organ} style={{width: 35, height: 35}} />
         </Box>
-        <Box
-          width={(7 * width) / 9}
-          flexDirection={'row'}
-          alignItems="center"
-          justifyContent="space-between">
-          <Box ml={4} width={(7 * width) / 12}>
-            <Text fontFamily={'Roboto-Bold'} fontSize={19} lineHeight={18}>
-              {item.name}
-            </Text>
-            <Text fontFamily={'Roboto-Regular'} fontSize={15} maxWidth={220}>
-              {item.address}
-            </Text>
-            <Text fontFamily={'Montserrat-Regular'}>{item.phone_number_1}</Text>
-          </Box>
-          <Box>
-            <Button
-            size={"sm"}
-              onPress={() => Linking.openURL(`tel:+88${item.phone_number_1}`)}
-              _text={{fontFamily: 'Montserrat-Regular'}}>
-              CALL
-            </Button>
-          </Box>
+
+        <Box ml={4}>
+          <Text fontFamily={'Roboto-Bold'} fontSize={18} lineHeight={18}>
+            {item.name}
+          </Text>
+          <Text fontFamily={'Roboto-Regular'} fontSize={14} maxWidth={220}>
+            {item.address}
+          </Text>
+          <Text fontFamily={'Montserrat-Regular'}>{item.phone_number_1}</Text>
+        </Box>
+
+        <Box>
+          <Button
+            size={'sm'}
+            onPress={() => Linking.openURL(`tel:+88${item.phone_number_1}`)}
+            _text={{fontFamily: 'Montserrat-Regular'}}>
+            CALL
+          </Button>
         </Box>
       </Box>
     </Box>

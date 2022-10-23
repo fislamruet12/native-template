@@ -105,6 +105,8 @@ const InformationScreen = (props: any) => {
   };
 
   const formik = useFormik({
+    validateOnChange: false,
+    validateOnBlur: false,
     initialValues,
     validationSchema,
     onSubmit: values => {

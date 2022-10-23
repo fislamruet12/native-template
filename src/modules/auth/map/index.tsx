@@ -5,10 +5,7 @@
 import React, {useState, useEffect} from 'react';
 
 // import all the components we are going to use
-import {
-  PermissionsAndroid,
-  Platform,
-} from 'react-native';
+import {PermissionsAndroid, Platform} from 'react-native';
 
 //import all the components we are going to use.
 import Geolocation from '@react-native-community/geolocation';
@@ -19,14 +16,14 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 import {KEY} from '../../../config';
 import {width} from '../../../utils/handy';
 import axios from 'axios';
-import { AUTH_NAVIGATION } from '../../../../typings/navigation';
-import { icons } from '../../../assets/icons';
+import {AUTH_NAVIGATION} from '../../../../typings/navigation';
+import {icons} from '../../../assets/icons';
 
 let watchID: any = null;
-const MapScreen = (props:any) => {
+const MapScreen = (props: any) => {
   const [currentPos, setCurrentPos] = useState<LatLong>({
     latitude: 23.811056,
-    longitude:  90.407608,
+    longitude: 90.407608,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -100,12 +97,12 @@ const MapScreen = (props:any) => {
       `&key=` +
       KEY +
       ``;
-  //console.log(url)
+    //console.log(url)
     axios
       .get(url)
       .then(res => {
-      //  console.log(res?.data?.result?.geometry)
-        let loc=res?.data?.result?.geometry.location
+        //  console.log(res?.data?.result?.geometry)
+        let loc = res?.data?.result?.geometry.location;
         setCurrentPos({
           ...currentPos,
           latitude: loc.lat,
@@ -113,29 +110,26 @@ const MapScreen = (props:any) => {
         });
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
       });
   };
-  console.log(currentPos)
+  console.log(currentPos);
   return (
     <View flex={1}>
       <MapView
         style={{flex: 1}}
         loadingEnabled={true}
         showsUserLocation={true}
-        onRegionChangeComplete={region =>{
-          console.log(region)
+        onRegionChangeComplete={region => {
+          console.log(region);
           setCurrentPos({
             ...region,
-           // longitudeDelta:currentPos.longitudeDelta,
-           // latitudeDelta:currentPos.latitudeDelta
-          })
+            // longitudeDelta:currentPos.longitudeDelta,
+            // latitudeDelta:currentPos.latitudeDelta
+          });
         }}
-        region={currentPos}
-      >
-        <Marker coordinate={currentPos}
-        image={icons.pin}
-         />
+        region={currentPos}>
+        <Marker coordinate={currentPos} image={icons.pin} />
       </MapView>
 
       <View position={'absolute'} top={0} width={width}>
@@ -143,7 +137,7 @@ const MapScreen = (props:any) => {
           placeholder="Search"
           onPress={(data, details = null) => {
             console.log(data.place_id);
-            getLanLong(data.place_id)
+            getLanLong(data.place_id);
           }}
           query={{
             key: KEY,
@@ -152,7 +146,13 @@ const MapScreen = (props:any) => {
         />
       </View>
       <View position={'absolute'} bottom={5} alignItems="center" width={width}>
-        <Button size={'lg'} onPress={()=>props.navigation.navigate(AUTH_NAVIGATION.INFO_CONFIRM,currentPos)} >Confirm Location</Button>
+        <Button
+          size={'lg'}
+          onPress={() =>
+            props.navigation.navigate(AUTH_NAVIGATION.INFO_CONFIRM, currentPos)
+          }>
+          Confirm Location
+        </Button>
       </View>
     </View>
   );

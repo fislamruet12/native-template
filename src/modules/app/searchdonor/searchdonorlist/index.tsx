@@ -40,14 +40,14 @@ const SearchDonorListScreen = (props: any) => {
     <Box>
     <Box bg="white" mt={2} padding={3}>
       <Box flexDirection={'row'} alignItems="center">
-        <Box width={width / 8}>
+        <Box >
           <Box alignSelf={'center'} bg="primary.900" padding={3} rounded="full">
             <Text fontFamily={'Roboto-Bold'} color={'white'}>
               {item.blood_group}
             </Text>
           </Box>
         </Box>
-        <Box width={(7 * width) / 9}>
+        <Box>
           <Box ml={4}>
             <Box flexDirection={'row'} justifyContent={'space-between'}>
               <Text fontFamily={'Roboto-Bold'} fontSize={18}>
@@ -60,9 +60,12 @@ const SearchDonorListScreen = (props: any) => {
             </Text>
             <Text  fontFamily={'Montserrat-Regular'}>{item.phone_number}</Text>
           </Box>
-          <Box alignItems={'flex-end'}>
+        
+        </Box>
+      </Box>
+      <Box alignItems={'flex-end'}>
             <Box flexDirection={'row'}>
-            <Box>
+            {/* <Box>
                 <Button
                   size={'sm'}
                   bg={'primary.900'}
@@ -73,7 +76,7 @@ const SearchDonorListScreen = (props: any) => {
                   }>
                   MAP
                 </Button>
-              </Box>
+              </Box> */}
               <Box>
                 <Button
                   size={'sm'}
@@ -84,7 +87,7 @@ const SearchDonorListScreen = (props: any) => {
                   CALL
                 </Button>
               </Box>
-              <Box>
+              {/* <Box>
                 <Button
                   size={'sm'}
                   bg={'primary.900'}
@@ -95,11 +98,9 @@ const SearchDonorListScreen = (props: any) => {
                   }>
                   HISTORY
                 </Button>
-              </Box>
+              </Box> */}
             </Box>
           </Box>
-        </Box>
-      </Box>
     </Box>
       <Box height={.3} bg="primary.800" roundedBottom={'full'} />
    </Box>

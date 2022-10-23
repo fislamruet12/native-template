@@ -34,10 +34,10 @@ const DonorListItem = (props: any) => {
   const renderItem = ({item}: {item: DonorDetailType}) => (
     <Box>
       <Box bg="white" roundedTop="md" mt={2} padding={3}>
-        <Box flexDirection={'row'} alignItems="center">
-          <Box width={width / 8}>
+        <Box flexDirection={'row'} >
+          <Box justifyContent={'center'} alignItems="center" >
             <Box
-              alignSelf={'center'}
+             
               bg="primary.900"
               padding={3}
               rounded="full">
@@ -46,8 +46,8 @@ const DonorListItem = (props: any) => {
               </Text>
             </Box>
           </Box>
-          <Box width={(7 * width) / 9}>
-            <Box ml={4}>
+          <Box ml={4}>
+            <Box>
               <Box flexDirection={'row'} justifyContent={'space-between'}>
                 <Text fontFamily={'Roboto-Bold'} fontSize={18}>
                   {item.name}
@@ -63,15 +63,18 @@ const DonorListItem = (props: any) => {
                 my={1}
                 lineHeight={16}
                 fontFamily={'Roboto-Regular'}
-                fontSize={16}
+                fontSize={14}
                 maxWidth={260}>
                 {item.address}
               </Text>
               <Text fontFamily={'Montserrat-Regular'}>{item.phone_number}</Text>
             </Box>
-            <Box alignItems={'flex-end'}>
-              <Box flexDirection={'row'}>
-                <Box>
+           
+          </Box>
+        </Box>
+        <Box alignItems={'flex-end'}>
+              <Box flexDirection={'row'} justifyContent="space-between">
+                {/* <Box>
                   <Button
                     size={'xs'}
                     bg={'primary.900'}
@@ -82,7 +85,7 @@ const DonorListItem = (props: any) => {
                     }>
                     MAP
                   </Button>
-                </Box>
+                </Box> */}
                 <Box>
                   <Button
                     size={'xs'}
@@ -95,7 +98,7 @@ const DonorListItem = (props: any) => {
                     CALL
                   </Button>
                 </Box>
-                <Box>
+                {/* <Box>
                   <Button
                     size={'xs'}
                     bg={'primary.900'}
@@ -106,11 +109,9 @@ const DonorListItem = (props: any) => {
                     }>
                     HISTORY
                   </Button>
-                </Box>
+                </Box> */}
               </Box>
             </Box>
-          </Box>
-        </Box>
       </Box>
 
       <Box height={.3} bg="primary.800" roundedBottom={'full'} />

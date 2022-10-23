@@ -33,25 +33,24 @@ const VolunteerScreen = () => {
   };
   const renderItem = ({item}: {item: VolunteerType}) => (
     <Box bg="white" marginBottom={2} rounded="md" padding={3}>
-      <Box flexDirection={'row'} alignItems="center">
-      <Box width={width / 8} borderRightColor="coolGray.400" borderRightWidth={.5}>
+      <Box flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
+      <Box  borderRightColor="coolGray.400" borderRightWidth={.5}>
           <Box alignSelf={'center'}>
             <Image source={icons.information} alt="organ" style={{height:40,width:40}} />
           </Box>
         </Box>
         <Box
-          width={(7 * width) / 9}
-          flexDirection={'row'}
-          alignItems="center"
-          justifyContent="space-between">
-          <Box ml={4} width={(7 * width) / 12}>
+         >
+          <Box >
             <Text fontFamily={'Roboto-Bold'} fontSize={18}>
               {item.name}
             </Text>
             
             <Text fontFamily={'Montserrat-Regular'}>{item.phone_number}</Text>
           </Box>
-          <Box>
+         
+        </Box>
+        <Box>
             <Button
               bg={'#bd4c38'}
               onPress={() => Linking.openURL(`tel:+88${item.phone_number}`)}
@@ -59,7 +58,6 @@ const VolunteerScreen = () => {
               CALL
             </Button>
           </Box>
-        </Box>
       </Box>
     </Box>
   );

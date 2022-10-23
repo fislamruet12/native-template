@@ -60,6 +60,8 @@ const BloodResquestScreen = (props: any) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: values => {
       console.log(values);
       api.request

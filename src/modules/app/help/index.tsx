@@ -33,32 +33,26 @@ const HelpLineScreen = () => {
   };
   const renderItem = ({item}: {item: HelpLineType}) => (
     <Box bg="white" marginBottom={2} rounded="md" padding={3}>
-      <Box flexDirection={'row'} alignItems="center">
-        <Box
-          width={width / 8}
-          borderRightColor="coolGray.400"
-          borderRightWidth={0.5}>
+      <Box
+        flexDirection={'row'}
+        alignItems="center"
+        justifyContent="space-between">
+        <Box borderRightColor="coolGray.400" borderRightWidth={0.5}>
           <Box alignSelf={'center'}>
-            <Image
-              source={icons.helpline}
-              alt="organ"
-              style={{height: 60, width: width / 10}}
-            />
+            <Image source={icons.helpline} style={{height: 60, width: 60}} />
           </Box>
         </Box>
-        <Box
-          width={(7 * width) / 9}
-          flexDirection={'row'}
-          alignItems="center"
-          justifyContent="space-between">
-          <Box ml={4} width={(7 * width) / 12}>
+        <Box flexDirection={'row'}>
+          <Box >
             <Text fontFamily={'Roboto-Bold'} fontSize={16} lineHeight={16}>
               {item.name}
             </Text>
 
             <Text fontFamily={'Montserrat-Regular'}>{item.contact_number}</Text>
           </Box>
-          <Box>
+          
+        </Box>
+        <Box>
             <Button
               bg={'#ffdbac'}
               onPress={() => Linking.openURL(`tel:${item.contact_number}`)}
@@ -70,7 +64,6 @@ const HelpLineScreen = () => {
               CALL
             </Button>
           </Box>
-        </Box>
       </Box>
     </Box>
   );

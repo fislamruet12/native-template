@@ -21,10 +21,8 @@ const DashBoardScreen = (props: any) => {
   const [heights, setheights] = useState(TNT);
   let lan = useSelector(
     (state: RootState) => state.currentLanguage.lan?.language,
-  ) 
+  );
 
- 
-  
   const user = useSelector(
     (state: RootState) => state.currentUser.user,
   ) as User;
@@ -42,19 +40,14 @@ const DashBoardScreen = (props: any) => {
 
   const donorListOnlyBloodGroup = (group: any) => {
     if (user) {
-      if (user.name != ''){
-        props.navigation.push(
-          SEARCHDONOR_NAVIGATION.SEARCHDONORLIST,
-          {
-            blood_group:group,
-            division_id: 0,
-            district_id: 0,
-            upazila_id: 0,
-          },
-        );
-       
-      }
-      else {
+      if (user.name != '') {
+        props.navigation.push(SEARCHDONOR_NAVIGATION.SEARCHDONORLIST, {
+          blood_group: group,
+          division_id: 0,
+          district_id: 0,
+          upazila_id: 0,
+        });
+      } else {
         privateRoute();
       }
     } else privateRoute();
@@ -62,7 +55,7 @@ const DashBoardScreen = (props: any) => {
     setheights(TNT);
   };
   return (
-    <Box flex={1} safeAreaTop bg="gray.200" alignItems={'center'}>
+    <Box bg="gray.300">
       <ScrollView>
         {user ? (
           user?.name != '' ? (
@@ -81,24 +74,26 @@ const DashBoardScreen = (props: any) => {
                 </Box>
               </Box>
               <Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"WelCome Back !!":"আপনাকে অভিনন্দন"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'WelCome Back !!' : 'আপনাকে অভিনন্দন'}
+                </Text>
               </Box>
             </Box>
           ) : null
         ) : null}
-        <VStack width={width} px="3" space={2.5} mt="4">
-          <Flex direction="row" mb="2.5" _text={{color: 'coolGray.800'}}>
+        <VStack m={2} bg={BG} rounded={'md'}>
+          <Flex
+            justifyContent="space-around"
+            alignItems={'center'}
+            direction="row"
+            mb="2.5"
+            _text={{color: 'coolGray.800'}}>
             <Pressable
               onPress={_.debounce(
                 () => donorList(APP_NAVIGATION.DONORLIST),
                 200,
               )}>
-              <Center
-                rounded={'xl'}
-              //  bg="amber.100"
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={2}>
+              <Center rounded={'xl'} padding={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -110,7 +105,9 @@ const DashBoardScreen = (props: any) => {
                     source={icons.blooddonor}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Donor List":"রক্ত দাতা"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Donor List' : 'রক্ত দাতার তালিকা'}
+                </Text>
               </Center>
             </Pressable>
             <Pressable
@@ -118,12 +115,7 @@ const DashBoardScreen = (props: any) => {
                 () => donorList(APP_NAVIGATION.SEARCHNDONOR),
                 200,
               )}>
-              <Center
-                mx={1}
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={3}>
+              <Center mx={1} rounded={'xl'} padding={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -135,15 +127,13 @@ const DashBoardScreen = (props: any) => {
                     style={{width: 35, height: 35}}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Search Donor":"রক্তদাতা খুঁজুন"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Search Donor' : 'রক্তদাতা খুঁজুন'}
+                </Text>
               </Center>
             </Pressable>
             <Pressable onPress={() => Alert.alert('', 'Under Developed')}>
-              <Center
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={2}>
+              <Center rounded={'xl'} padding={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -152,21 +142,23 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.donor} style={{width: 30, height: 30}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Active Donor":"সক্রিয় রক্তদাতা"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Active Donor' : 'সক্রিয় রক্তদাতা'}
+                </Text>
               </Center>
             </Pressable>
           </Flex>
-          <Flex direction="row" mb="2.5">
+          <Flex
+            direction="row"
+            mb="2.5"
+            justifyContent="space-around"
+            alignItems={'center'}>
             <Pressable
               onPress={_.debounce(
-                () =>donorList(APP_NAVIGATION.REQUEST),
+                () => donorList(APP_NAVIGATION.REQUEST),
                 200,
               )}>
-              <Center
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={2}>
+              <Center p={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -175,21 +167,15 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.blood} style={{width: 30, height: 30}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Blood Request":"রক্তের অনুরোধ"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Blood Request' : 'রক্তের অনুরোধ'}
+                </Text>
               </Center>
             </Pressable>
 
             <Pressable
-              onPress={_.debounce(
-                () => donorList(APP_NAVIGATION.FEED),
-                200,
-              )}>
-              <Center
-                mx={1}
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={3}>
+              onPress={_.debounce(() => donorList(APP_NAVIGATION.FEED), 200)}>
+              <Center p={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -201,7 +187,9 @@ const DashBoardScreen = (props: any) => {
                     style={{width: 30, height: 30}}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Request List":"অনুরোধের তালিকা"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Request List' : 'অনুরোধের তালিকা'}
+                </Text>
               </Center>
             </Pressable>
             <Pressable
@@ -209,11 +197,7 @@ const DashBoardScreen = (props: any) => {
                 () => donorList(APP_NAVIGATION.BLOODBANK),
                 200,
               )}>
-              <Center
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={2}>
+              <Center p={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -222,7 +206,9 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.bank} style={{width: 30, height: 30}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Blood Bank":"রক্ত ব্যাংক"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Blood Bank' : 'রক্ত ব্যাংক'}
+                </Text>
               </Center>
             </Pressable>
           </Flex>
@@ -249,7 +235,7 @@ const DashBoardScreen = (props: any) => {
             buttonColor={BG}>
             {bloodGroup.map((value, index) => (
               <ActionButton.item
-                onPress={() =>donorListOnlyBloodGroup(value)}
+                onPress={() => donorListOnlyBloodGroup(value)}
                 key={value}>
                 <Center
                   rounded="full"
@@ -268,18 +254,21 @@ const DashBoardScreen = (props: any) => {
           </ActionButton>
         </VStack>
 
-        <VStack width={width} px="3" space={2.5} mt="4">
-          <Flex direction="row" mb="2.5" _text={{color: 'coolGray.800'}}>
+        <VStack mt="4" m={2}>
+          <Flex
+            bg={BG}
+            rounded="md"
+            justifyContent="space-around"
+            alignItems={'center'}
+            direction="row"
+            mb="2.5"
+            _text={{color: 'coolGray.800'}}>
             <Pressable
               onPress={_.debounce(
                 () => props.navigation.push(APP_NAVIGATION.HELPLINE),
                 200,
               )}>
-              <Center
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={2}>
+              <Center p={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -288,7 +277,9 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.help} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Help Line":"হেল্প লাইন"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Help Line' : 'হেল্প লাইন'}
+                </Text>
               </Center>
             </Pressable>
             <Pressable
@@ -296,12 +287,7 @@ const DashBoardScreen = (props: any) => {
                 () => props.navigation.push(APP_NAVIGATION.VOLUNTEER),
                 200,
               )}>
-              <Center
-                mx={1}
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={3}>
+              <Center mx={1} p={5}>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -313,7 +299,9 @@ const DashBoardScreen = (props: any) => {
                     style={{width: 30, height: 30}}
                   />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Volunteers":"স্বেচ্ছাসেবক"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Volunteers' : 'স্বেচ্ছাসেবক'}
+                </Text>
               </Center>
             </Pressable>
             <Pressable
@@ -321,11 +309,7 @@ const DashBoardScreen = (props: any) => {
                 () => Alert.alert('', 'Under Developed'),
                 200,
               )}>
-              <Center
-                rounded={'xl'}
-                size={width / 3 - 10}
-                borderColor={BG}
-                borderWidth={2}>
+              <Center>
                 <Box
                   borderColor={BG}
                   borderWidth={2}
@@ -334,7 +318,9 @@ const DashBoardScreen = (props: any) => {
                   rounded="full">
                   <Image source={icons.update} style={{tintColor: 'red'}} />
                 </Box>
-                <Text fontFamily={'Montserrat-SemiBold'}>{lan===2?"Update Donor":"দাতা আপডেট"}</Text>
+                <Text fontFamily={'Montserrat-SemiBold'}>
+                  {lan === 2 ? 'Update Donor' : 'দাতা আপডেট'}
+                </Text>
               </Center>
             </Pressable>
           </Flex>
